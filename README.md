@@ -1,4 +1,4 @@
 ComputerScienceProject
 ======================
 
-damn,i'm goop
+damn, i'm ruby gooberg
