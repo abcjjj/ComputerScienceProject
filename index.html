@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head> 
+        <meta http-equiv="Content-Type" 
+              content="text/html; charset=UTF-8"> 
+        <title>Math Monsters</title> 
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    </head>
+<script src="script.js"></script>
+    <body> 
+    	<title>Math Monsters</title>
+        
+        
+        <button class="button" id="playButton" onclick="this.style.visibility='hidden',
+        document.getElementById('settingsButton').style.visibility='hidden',
+        document.getElementById('backButton').style.visibility='visible'" href="#" >PLAY</button>
+      
+      	<button class="button" id="settingsButton" onclick="this.style.visibility='hidden',
+        document.getElementById('playButton').style.visibility='hidden',
+        document.getElementById('backButton').style.visibility='visible'" href="#" >SETTINGS</button> 
+		
+		<button class="button" id="backButton" style="visibility:hidden" onclick="this.style.visibility='hidden',
+        document.getElementById('playButton').style.visibility='visible',
+      	document.getElementById('settingsButton').style.visibility='visible'" href="#" >BACK</button>
+    
+    </body> 
+</html>
