@@ -1,4 +1,4 @@
-.button {
+button {
 	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
 	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
@@ -33,7 +33,7 @@
 	text-align:center;
 	text-shadow:1px 1px 0px #528ecc;
 }
-.button:hover {
+button:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
 	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
@@ -45,5 +45,19 @@ button:active {
 	color:#111111;
 }
 
-p{
-}
+dogePosition
+{position:absolute; top:0px; left:0px;}
+
+playButton
+{position:absolute; top:250px; left:100px;}
+
+body{width:1024px; height:600px;
+	}
+
+
+
+
+
+
+
+
