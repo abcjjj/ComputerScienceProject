@@ -39,15 +39,11 @@ function Menu() {
     }// end quitGame
     
     function showMenu() {
-        this.getStartButton().style.visibility = "visible";
-        this.getQuitButton().style.visibility = "visible";
-        this.getTitle().style.visibility = "visible";
+        document.getElementbyId("menu").style.visibility = "visible";
     }// end showMenu
     
     function hideMenu() {
-        this.getStartButton().style.visibility = "hidden";
-        this.getQuitButton().style.visibility = "hidden";
-        this.getTitle().style.visibility = "hidden";
+        document.getElementbyId("menu").style.visibility = "hidden";
     }// end hideMenu
     
     function startGame() {
