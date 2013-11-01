@@ -13,36 +13,32 @@
 
 
        
-<canvas id="myCanvas" width="1024" height="600" style="border:1px solid #000000;">
+<canvas id="myCanvas" width="1024" height="600" >
 canvasfailedtext</canvas>
         
          
          <script>
 var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
-      var imageObj = new Image();
-
-      imageObj.onload = function() {
-        context.drawImage(imageObj, 10, 10);
-      };
-      imageObj.src = 'images/DOGE.png';
+      var imageDoge = new Image();
+      imageDoge.src = 'images/DOGE.png';
+      context.font="bold 12px sans-serif";
 
 </script>
+       <img id="title" src="images/title.png">
+       <img id="monster" src="images/DOGE.png">
        
        
-        <button class="button" id="playButton" onclick="this.style.visibility='hidden',
-        document.getElementById('settingsButton').style.visibility='hidden',
-        document.getElementById('backButton').style.visibility='visible'" href="#" >PLAY</button>
+       <div id="menu">
+        <button class="button" id="start" onclick="this.style.visibility='hidden',
+        document.getElementById('quit').style.visibility='hidden',
+        document.getElementById('monster').style.visibility='visible'"
+        href="#" >START</button>
      
          
-      	<button class="button" id="settingsButton" onclick="this.style.visibility='hidden',
-        document.getElementById('playButton').style.visibility='hidden',
-        document.getElementById('backButton').style.visibility='visible'" href="#" >SETTINGS</button> 
-		
-		<button class="button" id="backButton" style="visibility:hidden" onclick="this.style.visibility='hidden',
-        document.getElementById('playButton').style.visibility='visible',
-      	document.getElementById('settingsButton').style.visibility='visible'" href="#" >BACK</button>
-    	
+      	<button class="button" id="quit"  onclick="this.style.visibility='hidden',
+	window.close();" href="#" >QUIT</button> 
+    	</div>
     	
     	
    
