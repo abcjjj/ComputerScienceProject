@@ -322,7 +322,10 @@ function Battle() {
             return " / ";  
     }// end generateRandomSign
     function generateRandomNatrualNumber() {
-        return "" + Math.round(Math.random()*100);// 2 digits - should provide a wider range
+        if(Math.floor(Math.random()*2)===1)
+            return "" + Math.round(Math.random()*100);// 2digits
+        else // 1digit
+            return "" + Math.round(Math.random()*10);
     }// end generateRandomSign
     
     var answer = 0;
@@ -342,7 +345,7 @@ function Battle() {
                    answer = (parseInt(answer)-parseInt(numbers[i]));
                 if(questionString.charAt(questionString.length-numbers[i].length-2)==='*')
                    answer = (parseInt(answer)*parseInt(numbers[i]));
-                if(questionString.charAt(questionString.length-numbers[i].length-2)==='/')
+                if(questionString.charAt(questionString.length-numbers[i].length-2)==='/')// should round?
                    answer = (parseInt(answer)/parseInt(numbers[i]));
             }// end if-else
             if(i!==terms-1)
