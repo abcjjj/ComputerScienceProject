@@ -90,12 +90,12 @@ var transition = new Transition();
 // action events
 transition.getChooseToSkip.onclick = transition.proceed("instructions");
 
-// @TO DO: figure out a way to let the screen proceed properly
-// if(transition.getInstructions().getAttribute("visibility")==="visible")
-//     transition.getToNextScreen.onclick = transition.proceed("instructions");
+//proceed to different screens accordingly
+if($("#instructions").css("visibility")==="visible")
+    transition.getToNextScreen.onclick = transition.proceed("instructions");
 
-// if(transition.getWin().getAttribute("visibility")==="visible")
-//     transition.getToNextScreen.onclick = transition.proceed("win");
+if($("#win").css("visibility")==="visible")
+    transition.getToNextScreen.onclick = transition.proceed("win");
 
 
 /**
