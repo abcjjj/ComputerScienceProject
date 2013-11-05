@@ -6,15 +6,14 @@
         <title>Math Monsters</title> 
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
-		<script src="script.js"></script>
-		<script src="jquery-2.0.3.js"></script>
+<script src="script.js"></script>
     <body> 
     	<title>Math Monsters</title>
        
 
 
        
-<canvas id="myCanvas" width="1024" height="600" >
+<canvas id="myCanvas" width="1023" height="599" >
 canvasfailedtext</canvas>
         
          
@@ -26,19 +25,39 @@ var canvas = document.getElementById('myCanvas');
       context.font="bold 12px sans-serif";
 
 </script>
-       <img id="title" src="images/title.png">
-       <img id="monster" src="images/DOGE.png">
-       
+      
+       <img id="monster" src="images/dogeanimation.gif">
+       <img id="helpprompt" src="images/helpprompt.png">
+       <img id="instructions" src="images/instructions.png">
        
        <div id="menu">
         <button class="button" id="start" onclick="this.style.visibility='hidden',
-        document.getElementById('quit').style.visibility='hidden',
-        document.getElementById('monster').style.visibility='visible'"
+        document.getElementById('quit').style.visibility='hidden', document.getElementById('yes').style.visibility='visible',
+        document.getElementById('no').style.visibility='visible', document.getElementById('helpprompt').style.visibility='visible'"
         href="#" >START</button>
+     
+     	<button class="button" id="yes" onclick="this.style.visibility='hidden',
+     	document.getElementById('no').style.visibility='hidden',document.getElementById('title').style.visibility='hidden',
+     	document.getElementById('instructions').style.visibility='visible',
+     	document.getElementById('helpprompt').style.visibility='hidden',
+     	document.getElementById('ok').style.visibility='visible'"
+     	 href="#" >YES</button> 
+     	
+     	<button class="button" id="no" onclick="this.style.visibility='hidden',document.getElementById('title').style.visibility='hidden',
+     	document.getElementById('monster').style.visibility='visible',document.getElementById('yes').style.visibility='hidden', 
+     	document.getElementById('helpprompt').style.visibility='hidden'"
+     	 href="#" >NO</button> 
+     	 
+     	 <button class="button" id="ok" onclick="this.style.visibility='hidden',
+     	 document.getElementById('monster').style.visibility='visible',
+     	 document.getElementById('instructions').style.visibility='hidden'"
+     	 href="#" >OK</button> 
      
          
       	<button class="button" id="quit"  onclick="this.style.visibility='hidden',
 	window.close();" href="#" >QUIT</button> 
+	
+	 <img id="title" src="images/title.png">
     	</div>
     	
     	
