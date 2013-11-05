@@ -30,8 +30,8 @@ function Menu() {
 var menu = new Menu();
 
 // action events
-menu.getStartButton().onclick = menu.startGame();
-menu.getQuitButton().onclick = menu.quitGame();
+menu.startButton.onclick = menu.startGame();
+menu.quitButton.onclick = menu.quitGame();
 
 
 /**
@@ -88,7 +88,7 @@ function Transition() {
 var transition = new Transition();
 
 // action events
-transition.getChooseToSkip.onclick = transition.proceed("instructions");
+transition.chooseToSkip.onclick = transition.proceed("instructions");
 
 //proceed to different screens accordingly
 if($("#instructions").css("visibility")==="visible")
@@ -99,7 +99,7 @@ if($("#win").css("visibility")==="visible")
 
 
 /**
- * the character that the user controls
+ * the battle screen
  */
 function Battle() {
     this.answer = -1;
@@ -132,6 +132,16 @@ function Battle() {
         document.getElementById("shop").style.visibility = "visible";
     }// end toShop
     
+    function answerSubmitted(isCorrect) {
+        if(isCorrect) {
+            character.money += 500;
+            
+        }
+        else {
+            this.death();
+        }// end if-else
+    }
+    
     // make question
     
 }// end Constructor
@@ -139,9 +149,7 @@ function Battle() {
 //initializes battle screen 
 var battleScreen = new Battle();
 
-// action events
-
-// @TO DO: add the followings to the above:
+// @TO DO: add the followings to the above:q
 function generateRandomSign() {
     // random sign:
     var randomSign = Math.floor(Math.random()*4);
@@ -188,17 +196,61 @@ function createQuestion(){
     return questionString + " =";
 }// end createQuestion
 
+function checkAnswer() {
+    return $("#inputAnswer").val() === battle.answer;
+}// end checkAnswer
+
+// action events
+battle.toShopButton.onclick = battle.toShop();
+
+//need a submit in a form
+$("#submit").click(checkAnswer());
 
 
 
 
+/**
+ * the shop
+ */
+function Shop() {
+    var itemsDisplayed = document.getElementById("itemsDisplayed");// for now,this only includes the key
+    var returnToBattle = document.getElementById("returnToBattle");// Yet to be included
+    var isKeyBought = false;
+    var isGameWon = false;
+    
+    function setIsKeyBought(bought) {
+        isKeyBought = is;
+    }// end mutator
+    
+    function setIsGameWon(won) {
+        isGameWon = won;
+    }// end mutator
+    
+    function gameWon() {
+        $("#shop").css("visibility", "hidden");
+        transition.proceed("win");
+    }// end gameWon
+    
+    function returnToBattleScreen() {
+        $("#shop").css("visibility", "hidden");
+        $("#battle".css("visibility", "visible");)
+    }// end returnToBattle
+    
+}// end constructor
 
+// initialize Shop
+var shop = new Shop();
 
+// actions events
+shop.returnToBattle.onclick = shop.returnToBattleScreen();
 
-
-
-
-
+if(character.money>==1000)//temp.
+    shop.itemDisplayed.onclick = shop.setIsKeyBought(true);
+// there could be intermediate steps
+if(shop.isKeyBought===true)
+    shop.setIsGameWon(true);
+if(shop.isGameWon===true)
+    shop.gameWon();
 
 
 
