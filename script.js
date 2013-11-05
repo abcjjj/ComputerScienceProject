@@ -149,7 +149,12 @@ function Battle() {
 //initializes battle screen 
 var battleScreen = new Battle();
 
-// @TO DO: add the followings to the above:q
+// @TO DO: add the followings to the above:
+
+/**
+ * generates a random opeeration sign in an expression that will be generated
+ * @ return a random opertation sign that might be +, -, *, or /
+ */
 function generateRandomSign() {
     // random sign:
     var randomSign = Math.floor(Math.random()*4);
@@ -163,23 +168,70 @@ function generateRandomSign() {
         return " / ";  
 }// end generateRandomSign
 
+/**
+ * generates a random 1-digit or 2-digit natrual number
+ * @ return the number generated
+ */
 function generateRandomNatrualNumber() {
     if(Math.floor(Math.random()*2)===1)
-        return "" + Math.round(Math.random()*100);// 2digits
-    else // 1digit
+        return "" + Math.round(Math.random()*100);// 2 digits
+    else // 1 digit
         return "" + Math.round(Math.random()*10);
 }// end generateRandomSign
+
+/**
+ * a function that creates a power (i.e. 2^3)
+ * base and exponent should be 1-digit; base could be 10
+ * @ return a string in the form of base^exponent
+ */
+function generateRandomPower() {
+    return Math.round(Math.random()*10) + "^" + Math.floor(Math.random()*10);
+}// end generateRandomPower
+
+/**
+ * turns a power into an integer
+ * @ param power is the power that is to be transformed
+ * @ return the transformed integer
+ */
+function turnPowerIntoNumber(power) {
+    return Math.pow(parseInt(power.charAt(0)), power.charAt(2)); //at index 0 is the base, at index 1 is '^', and at index 2 is the exponent
+}// end turnPowerIntoNumber
     
 //var answer = 0;
-function createQuestion(){
-    var questionString = "";
-    var terms = 2;
+/**
+ * creates the an expression that the user will evaluate
+ * @ param term how many terms there will be in the expression
+ * @ param type what type of terms will exsist within the expression
+ * @ return the question randomly generated according to the parameters
+ */
+function createQuestion(term, type){
+    var questionString = "";// would mainly consists of the expression
+    var terms = term; // should be set to 2 for now
     var numbers = new Array();
+
     for(var i=0; i<terms; i++) {
-        numbers[i] = generateRandomNatrualNumber();
-        questionString += numbers[i];
+        if(type==="noPower") {
+            numbers[i] = generateRandomNatrualNumber();
+            questionString += numbers[i];
+        }
+        else if(type==="hasPower") {
+            if(Math.floor(Math.random()*2)===0) {   // 0 would lead to no exponent, 1 would lead to a power
+                number[i] = generateRandomNaturalNumber();
+                questionString += number[i];
+                number[i] = turnPowerIntoNumber(number[i]);
+            }
+            else {  // ===1
+                number[i] = generateRandomPower();
+                questionString += number[i];
+                number[i] = turnPowerIntoNumber(number[i]);
+            }// end if-else
+        }
+        else {
+            return "Please select a type";
+        }// end if-else
+        
         if(i==0)
-           battle.setAnswer(numbers[i]);
+              battle.setAnswer(numbers[i]);
         else {
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='+')
                 battle.setAnswer(parseInt(battle.answer)+parseInt(numbers[i]));
@@ -187,25 +239,31 @@ function createQuestion(){
                 battle.setAnswer(parseInt(battle.answer)-parseInt(numbers[i]));
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='*')
                 battle.setAnswer(parseInt(battle.answer)*parseInt(numbers[i]));
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='/')// should round?
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='/')// should round to 1-decimal place
                 battle.setAnswer(parseInt(battle.answer)/parseInt(numbers[i]));
         }// end if-else
         if(i!==terms-1)
             questionString += generateRandomSign();
-    }
-    return questionString + " =";
+    }// end for
+    
+    return questionString + " = ?";
 }// end createQuestion
 
-function checkAnswer() {
-    return $("#inputAnswer").val() === battle.answer;
+/**
+ * checks whether if the answer from the user is right
+ * @ decimal how many decimal places the generated answer is rounded to
+ * @ return whether if the answer is correct
+ */
+function checkAnswer(decimal) {
+    return $("#inputAnswer").val() === Math.round(battle.answer*(Math.pow(10, decimal))/(Math.pow(10, decimal));
 }// end checkAnswer
+
 
 // action events
 battle.toShopButton.onclick = battle.toShop();
 
 //need a submit in a form
 $("#submit").click(checkAnswer());
-
 
 
 
@@ -251,13 +309,6 @@ if(shop.isKeyBought===true)
     shop.setIsGameWon(true);
 if(shop.isGameWon===true)
     shop.gameWon();
-
-
-
-
-
-
-
 
 
 
