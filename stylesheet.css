@@ -45,10 +45,16 @@ button:active {
 	color:#111111;
 }
 
-canvas{position:absolute; top:0px; left:0px; border:1px solid #000000;}
+canvas{visibility:visible; position:absolute; top:0px; left:0px; border:1px solid #000000;}
 
-#start{position:absolute; top:235px; left:450px;}
-#quit{position:absolute;top:350px; left:450px;}
+#start{visibility:visible; position:absolute; top:235px; left:450px;}
+#quit{visibility:visible; position:absolute;top:350px; left:450px;}
 
-#title{position:absolute; top:5px; left:250px;}
+#yes{visibility:hidden; position:absolute; top:300px; left:300px;}
+#no{visibility:hidden; position:absolute; top:300px; left:550px;}
+#ok{visibility:hidden; position:absolute; top:350px; left:450px;}
+#helpprompt{visibility:hidden; position:absolute; top:200px; left:300px;}
+#instructions{visibility:hidden; position:absolute; top:1px; left:250px;}
+
+#title{visibility:visible; position:absolute; top:5px; left:250px;}
 #monster{visibility:hidden; position:absolute; top:100px; left:200px;}
