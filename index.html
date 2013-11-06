@@ -5,41 +5,42 @@
               content="text/html; charset=UTF-8"> 
         <title>Math Monsters</title> 
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    </head>
-    
+    	<script type="text/javascript" src="jquery-2.0.3.js"></script>
+   		<script type="text/javascript" src="script.js"></script>
+    </head> 
     <body> 
-    	<title>Math Monsters</title>
-		<canvas id="myCanvas" width="1023" height="599" >canvasfailedtext</canvas>
-        
-         
-        <script>
-		var canvas = document.getElementById('myCanvas');
-        	var context = canvas.getContext('2d');
-      		var imageDoge = new Image();
-		imageDoge.src = 'images/DOGE.png';
-      		context.font="bold 12px sans-serif";
-        </script>
-      
-        <img id="monster" src="images/dogeanimation.gif">
-        <img id="helpprompt" src="images/helpprompt.png">
-        <img id="instructions" src="images/instructions.png">
-       
-        <div id="menu">
-	        <button class="button" id="start" href="#" >START</button>
-	     
-	     	<button class="button" id="yes" href="#" >YES</button> 
-	     	
-	     	<button class="button" id="no" href="#" >NO</button> 
-	     	 
-	     	<button class="button" id="ok" href="#" >OK</button> 
-	     
-	      	<button class="button" id="quit" href="#" >QUIT</button> 
-		
-		<img id="title" src="images/title.png">
-    	</div>
+    	<canvas id="myCanvas" width="1023" height="599" >canvasfailedtext</canvas>
     	
+		<!--The Menu Screen-->
+	    <img class="menu" id="title" src="images/title.png">
+	    <button class="menu" id="start" href="#" >START</button> 
+	    <button class="menu" id="quit" href="#" >QUIT</button>
+	    
+	    <!--The Transistion Screens-->
+	    <!--Choosing to skip the instructions-->
+	    <img class="transitionSkip" id="helpprompt" src="images/helpprompt.png"> 
+	    <button class="transitionSkip" id="yesView" href="#" >YES</button>
+	    <button class="transitionSkip" id="noView" href="#" >NO</button>
+	    <!--The Instructions-->
+	    <img class="instruction" id="instructions" src="images/instructions.png">
+	    <button class="instruction" id="ok" href="#" >OK</button>
+	    <!--Win-->
+	    <p class="won" id="congradulations">You Won!</p>
+	    <button class="won" id="backToMenu">Menu</button>
+	    
+	   	<!--The Battle Screen-->
+    	<img class="battle" id="monster" src="images/dogeanimation.gif">
+    	<p class="battle" id="question">?Question?</p>
+    	<form class="battle" id="answerInput">
+    	Your Answer: <input class="battle" id="userAnswer" type="number" name="answer">
+    	</form>
+    	<button class="battle" id="submitAnswer" href="#">Submit</button>
+    	<button class="battle" id="toShop" href="#">Shop</button>
+    	<p class="battle shop" id="showMoney">Money: $0</p>
     	
-        <script src="jquery-2.0.3.js"></script>
-   	<script src="script.js"></script>
+	    <!--The Shop-->
+	    <button class="shop" id="key" src="#" href="#">Key: $500</button>
+	    <button class="shop" id="toBattle" href="#">Back</button>
+	        	
     </body> 
 </html>
