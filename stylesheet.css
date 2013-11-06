@@ -1,3 +1,13 @@
+/*Temporarily serves as the "box" of the playbox screen*/
+#myCanvas {
+	visibility:visible; 
+	position:absolute; 
+	top:0px; 
+	left:0px;
+	border:1px solid #000000;
+}
+
+/*Style for all buttons (temp.)*/
 button {
 	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
@@ -38,23 +48,141 @@ button:hover {
 	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
 	background-color:#378de5;
-}.
+}
 button:active {
 	position:relative;
 	top:1px;
 	color:#111111;
 }
 
-canvas{visibility:visible; position:absolute; top:0px; left:0px; border:1px solid #000000;}
+/*Menu Elements*/
+.menu {
+	visibility:visible;
+}
+#start {
+	visibility:visible;
+	position:absolute; 
+	top:235px; 
+	left:450px;
+}
+#quit {
+	visibility:visible; 
+	position:absolute;
+	top:350px; 
+	left:450px;
+}
+#title {
+	visibility:visible; 
+	position:absolute; 
+	top:5px; 
+	left:250px;
+}
 
-#start{visibility:visible; position:absolute; top:235px; left:450px;}
-#quit{visibility:visible; position:absolute;top:350px; left:450px;}
+/*Transitions*/
+.transitionSkip {
+	visibility:hidden;
+}
+#helpprompt {
+	visibility:hidden; 
+	position:absolute; 
+	top:200px; 
+	left:300px;
+}
+#yesView {
+	visibility:hidden; 
+	position:absolute; 
+	top:300px; 
+	left:300px;
+}
+#noView {
+	visibility:hidden; 
+	position:absolute; 
+	top:300px; 
+	left:550px;
+}
+.instruction {
+	visibility:hidden;
+}
+#ok {
+	visibility:hidden; 
+	position:absolute;
+	top:350px; 
+	left:450px;
+}
+#instructions {
+	visibility:hidden; 
+	position:absolute; 
+	top:1px;
+	left:250px;
+}
+.won {
+	visibility:hidden;
+}
+#congradulations {
+	visibility:hidden;
+	position:absolute; 
+	top:10px; 
+	left:400px;
+}
+#backToMenu {
+	visibility:hidden;
+	position:absolute; 
+	top:100px; 
+	left:400px;
+}
 
-#yes{visibility:hidden; position:absolute; top:300px; left:300px;}
-#no{visibility:hidden; position:absolute; top:300px; left:550px;}
-#ok{visibility:hidden; position:absolute; top:350px; left:450px;}
-#helpprompt{visibility:hidden; position:absolute; top:200px; left:300px;}
-#instructions{visibility:hidden; position:absolute; top:1px; left:250px;}
+/*Battle Screen Elements*/
+.battle{
+	visibility:hidden;
+}
+#monster {
+	visibility:hidden; 
+	position:absolute; 
+	top:100px; 
+	left:200px;
+}
+#question {
+	visibility:hidden; 
+}
+#showMoney {
+	visibility:hidden;
+	position:absolute; 
+	top:5px; 
+	left:725px;
+}
+#toShop {
+	visibility:hidden; 
+	position:absolute; 
+	top:350px; 
+	left:25px;
+}
+}
+#answerInput {
+	visibility:hidden;
+}
+#userAnswer {
+	visibility:hidden;
+}
+#submitAnswer {
+	visibility:hidden; 
+	position:absolute; 
+	top:150px; 
+	left:250px;
+}
 
-#title{visibility:visible; position:absolute; top:5px; left:250px;}
-#monster{visibility:hidden; position:absolute; top:100px; left:200px;}
+/*The shop*/
+.shop {
+	visibility:hidden;
+}
+#toBattle {
+	visibility:hidden;
+	position:absolute; 
+	top:150px; 
+	left:250px;
+}
+#key {
+	visibility:hidden;
+	position:absolute; 
+	top:150px; 
+	left:550px;
+}
