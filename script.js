@@ -44,12 +44,12 @@ $(function(){
 	$("#yesView").click(function() {
 		$(".transitionSkip").css("visibility", "hidden");
 		$(".instruction").css("visibility", "visible");
-		$("#question").text(createQuestion(2, "noPower"));			
+		$("#question").text(createQuestion(2));			
 	});
 	$("#noView").click(function() {
 		$(".transitionSkip").css("visibility", "hidden");
 		$(".battle").css("visibility", "visible");
-		$("#question").text(createQuestion(2, "noPower"));		
+		$("#question").text(createQuestion(2));		
 	});
 });
 $(function(){
@@ -78,7 +78,7 @@ function createMonster(type) {
 }// end createMonster
 function death() {
     // when something (?) is dead
-    document.write("Game Over");
+    document.write("Game Over");// temp.
 }// end death
 
 //@TO DO: fix problems with the power terms
@@ -131,33 +131,15 @@ function turnPowerIntoNumber(power) {
  * @ param type what type of terms will exsist within the expression
  * @ return the question randomly generated according to the parameters
  */
-//@TO DO prevent 0 from becoming the denomenator
-function createQuestion(term, type){
+//@TO DO make it fit the Grade-4 expectations
+function createQuestion(term){
     var questionString = "";// would mainly consists of the expression
     var terms = term; // should be set to 2 for now
     var numbers = new Array();
 
     for(var i=0; i<terms; i++) {
-        if(type==="noPower") {
-            numbers[i] = generateRandomNatrualNumber();
-            questionString += numbers[i];
-        }
-        else if(type==="hasPower") {
-            if(Math.floor(Math.random()*2)===0) {   // 0 would lead to no exponent, 1 would lead to a power
-                number[i] = generateRandomNaturalNumber();
-                questionString += number[i];
-                number[i] = turnPowerIntoNumber(number[i]);
-            }
-            else {  // ===1
-                number[i] = generateRandomPower();
-                questionString += number[i];
-                number[i] = turnPowerIntoNumber(number[i]);
-            }// end if-else
-        }
-        else {
-            return "Please select a type";
-        }// end if-else
-        
+        numbers[i] = generateRandomNatrualNumber();
+        questionString += numbers[i];
         if(i==0)
               answer=(numbers[i]);
         else {
