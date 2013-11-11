@@ -108,22 +108,6 @@ function generateRandomNatrualNumber() {
     else // 1 digit
         return "" + Math.round(Math.random()*10);
 }// end generateRandomSign
-/**
- * a function that creates a power (i.e. 2^3)
- * base and exponent should be 1-digit; base could be 10
- * @ return a string in the form of base^exponent
- */
-function generateRandomPower() {
-    return Math.floor(Math.random()*10) + "^" + Math.floor(Math.random()*10);
-}// end generateRandomPower
-/**
- * turns a power into an integer
- * @ param power is the power that is to be transformed
- * @ return the transformed integer
- */
-function turnPowerIntoNumber(power) {
-    return Math.pow(parseInt(power.charAt(0)), power.charAt(2)); //at index 0 is the base, at index 1 is '^', and at index 2 is the exponent
-}// end turnPowerIntoNumber
 //var answer = 0;
 /**
  * creates the an expression that the user will evaluate
@@ -134,11 +118,17 @@ function turnPowerIntoNumber(power) {
 //@TO DO make it fit the Grade-4 expectations
 function createQuestion(term){
     var questionString = "";// would mainly consists of the expression
-    var terms = term; // should be set to 2 for now
+    var terms = term; // should be set to 2 for now; not really necessary
     var numbers = new Array();
 
     for(var i=0; i<terms; i++) {
-        numbers[i] = generateRandomNatrualNumber();
+        if(questionString.charAt(questionString.length-2)!=='/')
+        	numbers[i] = generateRandomNatrualNumber();
+        else {
+        	numbers[i] = generateRandomNatrualNumber();
+        	while(number[i]===0)// this should prevent a 0 divisor
+        		numbers[i] = generateRandomNatrualNumber();        	
+        }// end if-else
         questionString += numbers[i];
         if(i==0)
               answer=(numbers[i]);
