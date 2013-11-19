@@ -127,7 +127,6 @@ function death() {
     document.write("Game Over");
 }// end death
 
-//@TO DO: fix problems with the power terms
 /**
  * generates a random opeeration sign in an expression that will be generated
  * @ return a random opertation sign that might be +, -, *, or /
@@ -154,22 +153,6 @@ function generateRandomNatrualNumber() {
     else // 1 digit
         return "" + Math.round(Math.random()*10);
 }// end generateRandomSign
-/**
- * a function that creates a power (i.e. 2^3)
- * base and exponent should be 1-digit; base could be 10
- * @ return a string in the form of base^exponent
- */
-function generateRandomPower() {
-    return Math.floor(Math.random()*10) + "^" + Math.floor(Math.random()*10);
-}// end generateRandomPower
-/**
- * turns a power into an integer
- * @ param power is the power that is to be transformed
- * @ return the transformed integer
- */
-function turnPowerIntoNumber(power) {
-    return Math.pow(parseInt(power.charAt(0)), power.charAt(2)); //at index 0 is the base, at index 1 is '^', and at index 2 is the exponent
-}// end turnPowerIntoNumber
 //var answer = 0;
 /**
  * creates the an expression that the user will evaluate
@@ -177,40 +160,36 @@ function turnPowerIntoNumber(power) {
  * @ param type what type of terms will exsist within the expression
  * @ return the question randomly generated according to the parameters
  */
-//@TO DO prevent 0 from becoming the denomenator
-function createQuestion(term, type){
+//@TO DO make it fit the Grade-4 expectations; nedd to rewrite the function through using the new rationale
+function createQuestion(term){
     var questionString = "";// would mainly consists of the expression
-    var terms = term; // should be set to 2 for now
+    var terms = term; // should only be set to 2 or 3; not really necessary
     var numbers = new Array();
 
     for(var i=0; i<terms; i++) {
-        if(type==="noPower") {
-            numbers[i] = generateRandomNatrualNumber();
-            questionString += numbers[i];
-        }
-        else if(type==="hasPower") {
-            if(Math.floor(Math.random()*2)===0) {   // 0 would lead to no exponent, 1 would lead to a power
-                number[i] = generateRandomNaturalNumber();
-                questionString += number[i];
-                number[i] = turnPowerIntoNumber(number[i]);
-            }
-            else {  // ===1
-                number[i] = generateRandomPower();
-                questionString += number[i];
-                number[i] = turnPowerIntoNumber(number[i]);
-            }// end if-else
-        }
+        if(questionString.charAt(questionString.length-2)!=='/')
+                numbers[i] = generateRandomNatrualNumber();
         else {
-            return "Please select a type";
+                numbers[i] = generateRandomNatrualNumber();
+                while(number[i]===0)// this should prevent a 0 divisor
+                        numbers[i] = generateRandomNatrualNumber();                
         }// end if-else
-        
+        questionString += numbers[i];
         if(i==0)
               answer=(numbers[i]);
         else {
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='+')
                 answer=(parseInt(answer)+parseInt(numbers[i]));
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='-')
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='-') {
                 answer=(parseInt(answer)-parseInt(numbers[i]));
+                if(answer<0) { // some substring stuff doesn't work...
+                        var temp1 = questionString.substring(questionString.length-(numbers[i].length));
+                        var temp2 = questionString.substring(questionString.length-numbers[i].length-4-numbers[i-1].length,questionString.length-numbers[i].length-4);
+                        questionString = questionString.substring(0, questionString.length-numbers[i].length-4-numbers[i-1]) + temp1 + " - " + temp2;
+                        answer = answer + 2*(numbers[i] - numbers[i-1]);
+                }// prevent a possible negative answer by switching the minuend and the subtractor; the answer is changed accordingly
+            }
+            // problems with multiplication and division
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='*')
                 answer=(parseInt(answer)*parseInt(numbers[i]));
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='/')// should round to 1-decimal place
@@ -230,13 +209,14 @@ function createQuestion(term, type){
 function checkAnswer(decimal) {
     return parseFloat($("#userAnswer").val()) === Math.round(answer*(Math.pow(10, decimal))/(Math.pow(10, decimal)));
 }// end checkAnswer
+
 $(function(){
         $("#submitAnswer").click(function() {
                 alert(checkAnswer(1));
                 if(checkAnswer(1)) {
                         character.money += 500;
                         $("#showMoney").text("Money: $" + character.money);
-                        $("#question").text(createQuestion(2, "noPower"));        
+                        $("#question").text(createQuestion(2));        
                 }
                 else
                         death();
