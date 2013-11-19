@@ -135,8 +135,15 @@ function createQuestion(term){
         else {
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='+')
                 answer=(parseInt(answer)+parseInt(numbers[i]));
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='-')
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='-') {
                 answer=(parseInt(answer)-parseInt(numbers[i]));
+                if(answer<0) {
+                	var temp1 = questionString.substring(questionString.length-(numbers[i].length));
+                	var temp2 = questionString.substring(questionString.length-numbers[i].length-4-numbers[i-1].length,questionString.length-numbers[i].length-4);
+                	questionString = questionString.substring(0, questionString.length-numbers[i].length-4-numbers[i-1]) + temp1 + " - " + temp2;
+                	answer = answer + 2*(numbers[i] - numbers[i-1]);
+                }// prevent a possible negative answer by switching the minuend and the subtractor; the answer is changed accordingly
+            }
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='*')
                 answer=(parseInt(answer)*parseInt(numbers[i]));
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='/')// should round to 1-decimal place
