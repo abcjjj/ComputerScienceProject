@@ -57,30 +57,44 @@ button:active {
 .menu {
         visibility:visible;
 }
-#start {
-        visibility:visible;
-        position:absolute; 
-        top:235px; 
-        left:450px;
-}
-#quit {
-        visibility:visible; 
-        position:absolute;
-        top:350px; 
-        left:450px;
-}
 #title {
         visibility:visible; 
         position:absolute; 
         top:5px; 
         left:250px;
 }
+#start {
+        visibility:visible;
+        position:absolute; 
+        top:235px; 
+        left:650px;
+}
+#howtoplay {
+        visibility:visible; 
+        position:absolute;
+        top:310px; 
+        left:740px;
+}
+
+#settings {
+	visibility:visible; 
+        position:absolute; 
+        top:310px; 
+        left:565px;
+}
+#savedgames {
+	visibility:visible; 
+        position:absolute; 
+        top:390px; 
+        left:650px;
+}
+
 
 /*Transitions*/
 .transitionSkip {
         visibility:hidden;
 }
-#helpprompt {
+#storyprompt {
         visibility:hidden; 
         position:absolute; 
         top:200px; 
@@ -98,7 +112,7 @@ button:active {
         top:300px; 
         left:550px;
 }
-.instruction {
+.story {
         visibility:hidden;
 }
 #ok {
@@ -107,7 +121,7 @@ button:active {
         top:350px; 
         left:450px;
 }
-#instructions {
+#storytext {
         visibility:hidden; 
         position:absolute; 
         top:1px;
@@ -186,3 +200,45 @@ button:active {
         top:150px; 
         left:550px;
 }
+
+
+/*The instructions screen*/
+.instructions{
+	
+}
+
+#instructionstoMenu{
+		visibility:hidden;
+        position:absolute; 
+        top:10px; 
+        left:10px;
+}
+
+
+
+/*The settings screen*/
+.settings{
+	 visibility:hidden;
+}
+#settingstoMenu{
+		visibility:hidden;
+        position:absolute; 
+        top:10px; 
+        left:10px;
+}
+
+
+
+/*The saved games screen*/
+.savedgames{
+	 visibility:hidden;
+}
+#savedgamestoMenu{
+		visibility:hidden;
+        position:absolute; 
+        top:10px; 
+        left:10px;
+}
+
+
+
