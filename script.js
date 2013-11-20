@@ -163,10 +163,9 @@ function generateRandomNatrualNumber() {
 //@TO DO make it fit the Grade-4 expectations; nedd to rewrite the function through using the new rationale
 function createQuestion(term){
     var questionString = "";// would mainly consists of the expression
-    var terms = term; // should only be set to 2 or 3; not really necessary
     var numbers = new Array();
 
-    for(var i=0; i<terms; i++) {
+    for(var i=0; i<term; i++) {
         if(questionString.charAt(questionString.length-2)!=='/')
                 numbers[i] = generateRandomNatrualNumber();
         else {
@@ -175,30 +174,37 @@ function createQuestion(term){
                         numbers[i] = generateRandomNatrualNumber();                
         }// end if-else
         questionString += numbers[i];
-        if(i==0)
-              answer=(numbers[i]);
-        else {
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='+')
-                answer=(parseInt(answer)+parseInt(numbers[i]));
+        // if(i==0)
+        //       answer=(numbers[i]);
+        // 
+        if(i!==0) {
+            // if(questionString.charAt(questionString.length-numbers[i].length-2)==='+')
+            //     answer=(parseInt(answer)+parseInt(numbers[i]));
             if(questionString.charAt(questionString.length-numbers[i].length-2)==='-') {
-                answer=(parseInt(answer)-parseInt(numbers[i]));
-                if(answer<0) { // some substring stuff doesn't work...
-                        var temp1 = questionString.substring(questionString.length-(numbers[i].length));
-                        var temp2 = questionString.substring(questionString.length-numbers[i].length-4-numbers[i-1].length,questionString.length-numbers[i].length-4);
-                        questionString = questionString.substring(0, questionString.length-numbers[i].length-4-numbers[i-1]) + temp1 + " - " + temp2;
-                        answer = answer + 2*(numbers[i] - numbers[i-1]);
-                }// prevent a possible negative answer by switching the minuend and the subtractor; the answer is changed accordingly
+                numbers[i] *= -1;
+                // if(answer<0) { // some substring stuff doesn't work...
+                //         var temp1 = questionString.substring(questionString.length-(numbers[i].length));
+                //         var temp2 = questionString.substring(questionString.length-numbers[i].length-4-numbers[i-1].length,questionString.length-numbers[i].length-4);
+                //         questionString = questionString.substring(0, questionString.length-numbers[i].length-4-numbers[i-1]) + temp1 + " - " + temp2;
+                //         answer = answer + 2*(numbers[i] - numbers[i-1]);
+                // }// prevent a possible negative answer by switching the minuend and the subtractor; the answer is changed accordingly
             }
             // problems with multiplication and division
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='*')
-                answer=(parseInt(answer)*parseInt(numbers[i]));
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='/')// should round to 1-decimal place
-                answer=(parseInt(answer)/parseInt(numbers[i]));
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='*') {
+            	numbers[i]*=numbers[i-1];
+            	numbersp[i-1]=0;
+            }
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='/') {
+            	numbers[i]=numbers[i-1]/numbers[i];
+            	numbersp[i-1]=0;
+            }
         }// end if-else
-        if(i!==terms-1)
+        if(i!==term-1)
             questionString += generateRandomSign();
     }// end for
-    
+    for(var i=0; i<numbers.length; i++) {
+    	answer += numbers[i];
+    }
     return questionString + " = ?";
 }// end createQuestion
 /**
