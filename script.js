@@ -253,5 +253,56 @@ $(function(){
 
 
 
+function createQuestion(term){
+    var questionString = "";// would mainly consists of the expression
+    var numbers = new Array();
 
+    for(var i=0; i<term; i++) {
+        if(i==0) {
+            numbers[i] = generateRandomNaturalNumber();            
+        //    answer=(numbers[i]);
+        questionString += numbers[i];
+        }
+        else {
+            if(questionString.charAt(questionString.length-2)!=='/')
+                numbers[i] = generateRandomNaturalNumber();
+            else {
+                    numbers[i] = generateRandomNaturalNumber();
+                    while(number[i]===0)// this should prevent a 0 divisor
+                            numbers[i] = generateRandomNaturalNumber();                
+            }// end if-else
+        questionString += numbers[i];
+            // if(questionString.charAt(questionString.length-numbers[i].length-2)==='+')
+            //     answer=(parseInt(answer)+parseInt(numbers[i]));
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='-') {
+                numbers[i] = parseInt(numbers[i])*(-1);
+                // if(answer<0) { // some substring stuff doesn't work...
+                //         var temp1 = questionString.substring(questionString.length-(numbers[i].length));
+                //         var temp2 = questionString.substring(questionString.length-numbers[i].length-4-numbers[i-1].length,questionString.length-numbers[i].length-4);
+                //         questionString = questionString.substring(0, questionString.length-numbers[i].length-4-numbers[i-1]) + temp1 + " - " + temp2;
+                //         answer = answer + 2*(numbers[i] - numbers[i-1]);
+                // }// prevent a possible negative answer by switching the minuend and the subtractor; the answer is changed accordingly
+            }
+            // problems with multiplication and division
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='*') {
+            	numbers[i]=parseInt(numbers[i])*parseInt(numbers[i-1]);
+            	numbers[i-1]=0;
+            }
+            if(questionString.charAt(questionString.length-numbers[i].length-2)==='/') {
+            	numbers[i]=parseInt(numbers[i])/parseInt(numbers[i-1]);
+            	numbers[i-1]=0;
+            }
+        }// end if-else
+        if(i!==term-1)
+            questionString += generateRandomSign();
+    	alert(numbers[i]);
+    }// end for
+    answer = 0;
+    for(var i=0; i<numbers.length; i++) {
+    	answer = parseInt(answer) + parseInt(numbers[i]);
+
+    }
+    	alert(answer);
+    return questionString + " = ?";
+}// end createQuestion
 
