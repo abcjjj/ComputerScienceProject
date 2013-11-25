@@ -153,6 +153,16 @@ function generateRandomNatrualNumber() {
     else // 1 digit
         return "" + Math.round(Math.random()*10);
 }// end generateRandomSign
+/**
+ * generates a random 3-digit or 4-digit natrual number
+ * @ return the number generated
+ */
+function generateBigNumber() {
+    if(Math.floor(Math.random()*2)===1)
+        return "" + Math.round(Math.random()*1000);// 2 digits
+    else // 1 digit
+        return "" + Math.round(Math.random()*10000);
+}// end generateBigNumber
 //var answer = 0;
 /**
  * creates the an expression that the user will evaluate
@@ -160,46 +170,64 @@ function generateRandomNatrualNumber() {
  * @ param type what type of terms will exsist within the expression
  * @ return the question randomly generated according to the parameters
  */
-//@TO DO make it fit the Grade-4 expectations; nedd to rewrite the function through using the new rationale
+//Met->@TO DO make it fit the Grade-4 expectations; nedd to rewrite the function through using the new rationale
 function createQuestion(term){
-    var questionString = "";// would mainly consists of the expression
+    var questionString = "";// would mainly consist of the expression
     var numbers = new Array();
-
+    var addOrMultiply = Math.round(Math.random());// 0 -> *, 1 -> + or -
+    
     for(var i=0; i<term; i++) {
-        if(i==0) {
-            numbers[i] = generateRandomNaturalNumber();
-        questionString += numbers[i];
+    	
+        if(answer!=='/') {
+            if((answer==='*'&&term>=3)||addOrMultiply===0) {
+                 numbers[i]=Math.round(Math.random()*10);// only want small integers for multiplication involving many numbers
+            }
+            else
+            	numbers[i] = generateRandomNaturalNumber();               
         }
         else {
-            if(questionString.charAt(questionString.length-2)!=='/')
-                numbers[i] = generateRandomNaturalNumber();
-            else {
-                    numbers[i] = generateRandomNaturalNumber();
-                    while(number[i]===0)// this should prevent a 0 divisor
-                            numbers[i] = generateRandomNaturalNumber();                
-            }// end if-else
-            questionString += numbers[i];
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='-') {
-                numbers[i] = parseInt(numbers[i])*(-1);
-            }
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='*') {
-            	numbers[i]=parseInt(numbers[i])*parseInt(numbers[i-1]);
-            	numbers[i-1]=0;
-            }
-            if(questionString.charAt(questionString.length-numbers[i].length-2)==='/') {
-            	numbers[i]=parseInt(numbers[i])/parseInt(numbers[i-1]);
-            	numbers[i-1]=0;
-            }
+                numbers[i] = Math.floor(Math.random()*10)+1;//preventing a negative and making the number as small as required               
         }// end if-else
-        if(i!==term-1)
-            questionString += generateRandomSign();
-    	alert(numbers[i]);
+        questionString += numbers[i];
+        if(answer==='-') {
+            numbers[i] = parseInt(numbers[i])*(-1);
+        }
+        if(answer==='*') {
+        	numbers[i]=parseInt(numbers[i])*parseInt(numbers[i-1]);
+        	numbers[i-1]=0;
+        }
+        if(answer==='/') {
+        	numbers[i]=parseInt(numbers[i])/parseInt(numbers[i-1]);
+        	numbers[i-1]=0;
+        }
+
+        //since the curriculum has certain expectations that restricts the types of question, 
+        // more conditions will be added to fit with them
+        if(i!==term-1) {
+        	if(term===2) {
+                questionString += generateRandomSign();// any operation would be ok        		
+        	}
+        	else if(term>2) {
+        		if(addOrMultiply===0) // just *
+                    questionString += " * ";
+                else { // + or -
+                	if(Math.round(Math.random())===1)
+                	    questionString += " + ";
+                    else
+                        questionString += " - ";
+                }// end if-else, special conditions that fits the curriculum 
+        	}
+        	else// this should not be reached as the term cannot be 1 and the students have not learned orders of operation
+                questionString += generateRandomSign();
+            answer=questionString.charAt(questionString.length-2);// use answer to temporarily record the operation
+        }
+    //	alert(numbers[i]);
     }// end for
     answer = 0;
     for(var i=0; i<numbers.length; i++) {
     	answer = parseInt(answer) + parseInt(numbers[i]);
-
     }// end for
+    // checks for negative answers
     if(answer<0) {
         var temp = 0;// default
         for(var i=0; i<numbers.length; i++) {
