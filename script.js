@@ -170,7 +170,6 @@ function generateBigNumber() {
  * @ param type what type of terms will exsist within the expression
  * @ return the question randomly generated according to the parameters
  */
-//Met->@TO DO make it fit the Grade-4 expectations; nedd to rewrite the function through using the new rationale
 function createQuestion(term){
     var questionString = "";// would mainly consist of the expression
     var numbers = new Array();
@@ -242,6 +241,25 @@ function createQuestion(term){
     alert(answer);
     return questionString + " = ?";
 }// end createQuestion
+/**
+ * 
+ * @ return 
+ */
+function createSpecialDivisionQuestion() {
+    var questionString;
+    questionString = generateBigNumber();
+    if(Math.round(Math.random())===1) {
+        questionString = parseInt(questionString) + parseInt(generateBigNumber());
+        answer = parseInt(questionString)/100;
+        questionString = questionString + " / 100 = ?";
+    }
+    else {
+        questionString = parseInt(questionString) + parseInt(Math.random()*10+1);
+        answer = parseInt(questionString)/10;        
+        questionString = questionString + " / 10 = ?";
+    }// end if-else
+    return questionString;
+}
 /**
  * checks whether if the answer from the user is right
  * @ decimal how many decimal places the generated answer is rounded to
