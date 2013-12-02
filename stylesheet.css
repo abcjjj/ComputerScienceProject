@@ -7,10 +7,12 @@
         border:1px solid #000000;
         width:1023px;
         height:599px;
-        z-index:-1;
+        z-index:-2;
+        
+        
 }
 
-/*Style for all buttons*/
+/*Style for all buttons (temp.)*/
 button {
         -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
         -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
@@ -46,47 +48,50 @@ button {
         text-align:center;
         text-shadow:1px 1px 0px #528ecc;
 }
+
 button:active {
         position:relative;
         top:1px;
         color:#111111;
 }
-/*Styling for all radio buttons*/
-input[type="radio"] {
-	/*some styling to be added */
-}
 
 /*Menu Elements*/
 .menu {
-        visibility:hidden;
+        visibility:visible;
 }
 #title {
-        visibility:hidden; 
+        visibility:visible; 
         position:absolute; 
-        top:5px; 
-        left:250px;
+        top:0px; 
+        left:0px;
+}
+#jailimage{
+            visibility:visible;
+            position:absolute;
+            top:150px;
+            left:100px;
 }
 #start {
-        visibility:hidden;
+        visibility:visible;
         position:absolute; 
         top:235px; 
         left:650px;
 }
 #howtoplay {
-        visibility:hidden; 
+        visibility:visible; 
         position:absolute;
         top:310px; 
         left:740px;
 }
 
 #settings {
-	visibility:hidden; 
+	visibility:visible; 
         position:absolute; 
         top:310px; 
         left:565px;
 }
 #savedgames {
-	visibility:hidden; 
+	visibility:visible; 
         position:absolute; 
         top:390px; 
         left:650px;
@@ -100,8 +105,8 @@ input[type="radio"] {
 #storyprompt {
         visibility:hidden; 
         position:absolute; 
-        top:200px; 
-        left:300px;
+        top:0px; 
+        left:0px;
 }
 #yesView {
         visibility:hidden; 
@@ -127,8 +132,8 @@ input[type="radio"] {
 #storytext {
         visibility:hidden; 
         position:absolute; 
-        top:1px;
-        left:250px;
+        top:0px;
+        left:0px;
 }
 .won {
         visibility:hidden;
@@ -142,37 +147,45 @@ input[type="radio"] {
 #backToMenu {
         visibility:hidden;
         position:absolute; 
-        top:100px; 
+        top:350px; 
         left:400px;
 }
-
-/*The shop*/
-.shop {
-        visibility:hidden;
-}
-#toBattle {
-        visibility:hidden;
+#backToBattle{
+	    visibility:hidden;
         position:absolute; 
-        top:150px; 
-        left:250px;
+        top:350px; 
+        left:600px;
 }
-#key {
-        visibility:hidden;
-        position:absolute; 
-        top:150px; 
-        left:550px;
+#winart {
+            visibility:hidden;
+            position:absolute;
+            top:0px;
+            left:0px;
+            z-index:-1;
+}
+#wintext {
+visibility:hidden;
+            position:absolute;
+            top:0px;
+    	left:0px;
+            z-index:-1;
 }
 
-
-/*The instructions screen*/
-.instructions{
-	visibility:hidden;
+.gameOver {
+            visibility:hidden;
 }
-#instructionstoMenu{
-		visibility:hidden;
+#loseToMenu {
+            visibility:hidden;
         position:absolute; 
-        top:10px; 
-        left:10px;
+        top:350px; 
+        left:400px;
+}
+#gameoverscreen {
+            visibility:hidden;
+        position:absolute; 
+        top:0px; 
+        left:0px;
+        z-index:-1;
 }
 
 /*The settings screen*/
@@ -270,10 +283,17 @@ input[type="radio"] {
 
 /*Battle Screen Elements*/
 .battle{
-        visibility:visible;
+        visibility:hidden;
+}
+#battlescreen{
+	    visibility:hidden; 
+        position:absolute; 
+        top:0px; 
+        left:0px;
+        z-index:-1;
 }
 #monster {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute; 
         top:130px; 
         left:660px;
@@ -282,7 +302,7 @@ input[type="radio"] {
         height:350px;
 }
 #monsterLives {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute; 
         top:25px; 
         left:800px;
@@ -291,7 +311,7 @@ input[type="radio"] {
         height:33px;
 }
 #characterLives {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute; 
         top:550px; 
         left:25px;
@@ -300,44 +320,48 @@ input[type="radio"] {
         height:33px;
 }
 #question {
-        visibility:visible;
+        visibility:hidden;
         position:absolute; 
         top:80px; 
         left:660px; 
+        color:WHITE;
 }
 #timer {
-        visibility:visible;
+        visibility:hidden;
         position:absolute; 
         top:0px; 
         left:5px; 
+        color:WHITE;
 }
 #answerInput {
-        visibility:visible;
+        visibility:hidden;
         position:absolute;
         top:130px;
         left:435px;
+        color:WHITE;
 }
 #userAnswer {
-        visibility:visible;       
+        visibility:hidden;       
 }
 #submitAnswer {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute; 
         top:200px; 
         left:435px;
 }
 #item1 {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute; 
         top:530px; 
         left:730px;
 }
 #item2 {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute; 
         top:530px; 
         left:880px;
 }
+
 /*"Action Screen"*/
 #toShop {
         visibility:hidden; 
@@ -352,16 +376,71 @@ input[type="radio"] {
         left:900px;
 }
 
+/*The shop*/
+.shop {
+        visibility:hidden;
+}
+#toBattle {
+        visibility:hidden;
+        position:absolute; 
+        top:40px; 
+        left:40px;
+}
+#key {
+        visibility:hidden;
+        position:absolute; 
+        top:500px; 
+        left:800px;
+}
+#shopscreen {
+	    visibility:hidden;
+	    position:absolute;
+	    top:0px;
+	    left:0px;
+	    z-index:-1;
+}
+
+
+/*The instructions/how to play screen*/
+.instructions{
+            visibility:hidden;
+}
+
+#instructionstoMenu{
+            visibility:hidden;
+        position:absolute; 
+        top:10px; 
+        left:10px;
+}
+#instructionsimg{
+	visibility:hidden;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:-1;
+}
+
+
+
+
+
+
 /*The saved games screen*/
 .savedgames{
 	 visibility:hidden;
 }
 #savedgamestoMenu{
-		visibility:hidden;
+            visibility:hidden;
         position:absolute; 
         top:10px; 
         left:10px;
 }
-
+#sgtitle{
+            visibility:hidden;
+        position:absolute; 
+        top:0px; 
+        left:0px;
+        z-index:-1;
+}
 
 
