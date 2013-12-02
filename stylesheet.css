@@ -10,7 +10,7 @@
         z-index:-1;
 }
 
-/*Style for all buttons (temp.)*/
+/*Style for all buttons*/
 button {
         -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
         -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
@@ -46,44 +46,47 @@ button {
         text-align:center;
         text-shadow:1px 1px 0px #528ecc;
 }
-
 button:active {
         position:relative;
         top:1px;
         color:#111111;
 }
+/*Styling for all radio buttons*/
+input[type="radio"] {
+	/*some styling to be added */
+}
 
 /*Menu Elements*/
 .menu {
-        visibility:visible;
+        visibility:hidden;
 }
 #title {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute; 
         top:5px; 
         left:250px;
 }
 #start {
-        visibility:visible;
+        visibility:hidden;
         position:absolute; 
         top:235px; 
         left:650px;
 }
 #howtoplay {
-        visibility:visible; 
+        visibility:hidden; 
         position:absolute;
         top:310px; 
         left:740px;
 }
 
 #settings {
-	visibility:visible; 
+	visibility:hidden; 
         position:absolute; 
         top:310px; 
         left:565px;
 }
 #savedgames {
-	visibility:visible; 
+	visibility:hidden; 
         position:absolute; 
         top:390px; 
         left:650px;
@@ -143,47 +146,6 @@ button:active {
         left:400px;
 }
 
-/*Battle Screen Elements*/
-.battle{
-        visibility:hidden;
-}
-#monster {
-        visibility:hidden; 
-        position:absolute; 
-        top:100px; 
-        left:350px;
-}
-#question {
-        visibility:hidden; 
-}
-#showMoney {
-        visibility:hidden;
-        position:absolute; 
-        top:5px; 
-        left:900px;
-}
-#toShop {
-        visibility:hidden; 
-        position:absolute; 
-        top:350px; 
-        left:25px;
-}
-#answerInput {
-        visibility:hidden;
-        position:absolute;
-        top:80px;
-        left:400px;
-}
-#userAnswer {
-        visibility:hidden;       
-}
-#submitAnswer {
-        visibility:hidden; 
-        position:absolute; 
-        top:150px; 
-        left:250px;
-}
-
 /*The shop*/
 .shop {
         visibility:hidden;
@@ -204,9 +166,8 @@ button:active {
 
 /*The instructions screen*/
 .instructions{
-	
+	visibility:hidden;
 }
-
 #instructionstoMenu{
 		visibility:hidden;
         position:absolute; 
@@ -214,11 +175,9 @@ button:active {
         left:10px;
 }
 
-
-
 /*The settings screen*/
 .settings{
-	 visibility:hidden;
+	 	visibility:hidden;
 }
 #settingstoMenu{
 		visibility:hidden;
@@ -226,8 +185,172 @@ button:active {
         top:10px; 
         left:10px;
 }
+#difficulties {
+        visibility:hidden;
+        position:absolute;
+        top:120px;
+        left:100px;	
+}
+#BGM {
+        visibility:hidden;
+        position:absolute;
+        top:240px;
+        left:100px;		
+}
+#timing {
+        visibility:hidden;
+        position:absolute;
+        top:180px;
+        left:100px;		
+}/*needs to be styled too*/
+
+/*The customization screen*/
+.customization {
+		visibility:hidden;
+}
+#doneCus {
+        visibility:hidden;
+        position:absolute;
+        top:530px;
+        left:880px;		
+}
+#characterCanvas {
+        visibility:hidden; 
+        position:absolute; 
+        top:1px; 
+        left:1px;
+        border:1px solid #000000;
+        width:389px;
+        height:597px;
+        z-index:-1;	
+}/*the followings need to be positioned and styled*/
+#genders {
+        visibility:hidden;
+        position:absolute;
+        top:30px;
+        left:400px;		
+}
+#eyes {
+        visibility:hidden;
+        position:absolute;
+        top:105px;
+        left:400px;		
+}
+#mouth {
+        visibility:hidden;
+        position:absolute;
+        top:180px;
+        left:400px;		
+}
+#accessory {
+        visibility:hidden;
+        position:absolute;
+        top:255px;
+        left:400px;		
+}
+#nose {
+        visibility:hidden;
+        position:absolute;
+        top:105px;
+        left:600px;		
+}
+#skinColor {
+        visibility:hidden;
+        position:absolute;
+        top:180px;
+        left:600px;		
+}
+#hair {
+        visibility:hidden;
+        position:absolute;
+        top:255px;
+        left:600px;		
+}
 
 
+/*Battle Screen Elements*/
+.battle{
+        visibility:visible;
+}
+#monster {
+        visibility:visible; 
+        position:absolute; 
+        top:130px; 
+        left:660px;
+        border:1px solid #000000;
+        width:280px;
+        height:350px;
+}
+#monsterLives {
+        visibility:visible; 
+        position:absolute; 
+        top:25px; 
+        left:800px;
+        border:1px solid #000000;
+        width:180px;
+        height:33px;
+}
+#characterLives {
+        visibility:visible; 
+        position:absolute; 
+        top:550px; 
+        left:25px;
+        border:1px solid #000000;
+        width:180px;
+        height:33px;
+}
+#question {
+        visibility:visible;
+        position:absolute; 
+        top:80px; 
+        left:660px; 
+}
+#timer {
+        visibility:visible;
+        position:absolute; 
+        top:0px; 
+        left:5px; 
+}
+#answerInput {
+        visibility:visible;
+        position:absolute;
+        top:130px;
+        left:435px;
+}
+#userAnswer {
+        visibility:visible;       
+}
+#submitAnswer {
+        visibility:visible; 
+        position:absolute; 
+        top:200px; 
+        left:435px;
+}
+#item1 {
+        visibility:visible; 
+        position:absolute; 
+        top:530px; 
+        left:730px;
+}
+#item2 {
+        visibility:visible; 
+        position:absolute; 
+        top:530px; 
+        left:880px;
+}
+/*"Action Screen"*/
+#toShop {
+        visibility:hidden; 
+        position:absolute; 
+        top:350px; 
+        left:25px;
+}
+#showMoney {
+        visibility:hidden;
+        position:absolute; 
+        top:5px; 
+        left:900px;
+}
 
 /*The saved games screen*/
 .savedgames{
