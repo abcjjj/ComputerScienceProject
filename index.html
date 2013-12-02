@@ -5,47 +5,52 @@
               content="text/html; charset=UTF-8"> 
         <title>Math Monsters</title> 
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        <script type="text/javascript" src="jquery-2.0.3.js"></script>
-        <script type="text/javascript" src="script.js"></script>
+            <script type="text/javascript" src="jquery-2.0.3.js"></script>
+                   <script type="text/javascript" src="script.js"></script>
     </head> 
     <body> 
-        
-        <canvas id="myCanvas">#</canvas>  
-        <!--The Menu Screen-->
-        <img class="menu" id="title" src="images/title.png">
-        <button class="menu" id="start" href="#" >START</button> 
-        <button class="menu" id="howtoplay" href="#" >HOW TO PLAY</button>
-        <button class="menu" id="settings" href="#" >SETTINGS</button>
-        <button class="menu" id="savedgames" href="#" >SAVED GAMES</button>
+            
+            
+            
+             <canvas id="myCanvas">canvasfailedtext</canvas>  
+            <!--The Menu Screen-->
+            <img class="menu" id="title" src="images/title.png">
+            <img class="menu" id="jailimage" src="images/menujailart.png">
+            <button class="menu" id="start" href="#" >START</button> 
+            <button class="menu" id="howtoplay" href="#" >HOW TO PLAY</button>
+            <button class="menu" id="settings" href="#" >SETTINGS</button>
+            <button class="menu" id="savedgames" href="#" >SAVED GAMES</button>
 
-		<!--The Instructions Screen-->
-		<button class="instructions" id="instructionstoMenu" href="#" >Back</button>
-		
-		<!--The Settings Screen-->
-		<button class="settings" id="settingstoMenu" href="#" >Back</button>
-        <form class="settings" id="difficulties">Difficulty Levels<br>
-            <input type="radio" name="level" class="levelRadio" class="settings" id="easy" value="easy">Easy
-            <input type="radio" name="level" class="levelRadio" class="settings" id="medium" value="medium">Medium
-            <input type="radio" name="level" class="levelRadio" class="settings" id="hard" value="hard">Hard
-            <input type="radio" name="level" class="levelRadio" class="settings" id="crazy" value="crazy">Crazy            
-        </form> 
-        <form action="" class="settings" id="BGM">
-            Background Music
-                <select name="">
-                <option value="XX" class="settings" id="xx">XX</option><!--yet to be decided-->
-                </select>
-        </form>
-        <form action="" class="settings" id="timing">
-            Timing
-            <select name="time">
-                <option value="15" class="settings" id="time15">15</option>
-                <option value="30" class="settings" id="time30">30</option>
-                <option value="45" class="settings" id="time45">45</option>
-                <option value="60" class="settings" id="time60">60</option>                    
-            </select>
-        </form>
-		
-		<!--The Customization Screen-->
+            <!--The Instructions Screen-->
+            <button class="instructions" id="instructionstoMenu" href="#" >Back</button>
+            <img class="instructions" id="instructionsimg" src="images/instructions.png">
+            
+            
+            <!--The Settings Screen-->           
+		    <button class="settings" id="settingstoMenu" href="#" >Back</button>
+		    <form class="settings" id="difficulties">Difficulty Levels<br>
+		        <input type="radio" name="level" class="levelRadio" class="settings" id="easy" value="easy">Easy
+		        <input type="radio" name="level" class="levelRadio" class="settings" id="medium" value="medium">Medium
+		        <input type="radio" name="level" class="levelRadio" class="settings" id="hard" value="hard">Hard
+		        <input type="radio" name="level" class="levelRadio" class="settings" id="crazy" value="crazy">Crazy            
+		    </form> 
+		    <form action="" class="settings" id="BGM">
+		        Background Music
+		            <select name="">
+		            <option value="XX" class="settings" id="xx">XX</option><!--yet to be decided-->
+		            </select>
+		    </form>
+		    <form action="" class="settings" id="timing">
+		        Timing
+		        <select name="time">
+		            <option value="15" class="settings" id="time15">15</option>
+		            <option value="30" class="settings" id="time30">30</option>
+		            <option value="45" class="settings" id="time45">45</option>
+		            <option value="60" class="settings" id="time60">60</option>                    
+		        </select>
+		    </form>
+            
+        <!--The Customization Screen-->
 		<button class="customization" id="doneCus" href="#" >Done!</button>
 		<canvas id="characterCanvas">#</canvas>  
         <form class="customization" id="genders">Gender<br>
@@ -100,26 +105,35 @@
                 <option value="Hair3" class="customization" id="hair3">Hair 3</option>                 
             </select>
         </form>
-        	
-		<!--The Saved Games Screen-->
-        <button class="savedgames" id="savedgamestoMenu" href="#" >Back</button>
-        
-        
-        <!--The Transistion Screens-->
-        <!--Choosing to skip the story-->
-        <img class="storySkip" id="storyprompt" src="images/storyprompt.png"> 
-        <button class="storySkip" id="yesView" href="#" >YES</button>
-        <button class="storySkip" id="noView" href="#" >NO</button>
-        <!--The Instructions-->
-        <img class="story" id="storytext" src="images/storytext.png">
-        <button class="story" id="ok" href="#" >OK</button>
-        <!--Win-->
-        <p class="won" id="congratulations">You Won!</p>
-        <button class="won" id="backToMenu">Menu</button>
-        
-        <!--The Battle Screen-->
-        <!--<img class="battle" id="monster" src="images/dogeanimation.gif">--><!--This should be changed into a canvas???-->
-        <canvas class="battle" id="monster">Monster</canvas>
+            
+            <!--The Saved Games Screen-->
+            <button class="savedgames" id="savedgamestoMenu" href="#" >Back</button>
+            <img class="savedgames" id="sgtitle" src="images/sgtitle.png">
+            
+            
+            <!--The Transistion Screens-->
+            <!--Choosing to skip the story-->
+            <img class="storySkip" id="storyprompt" src="images/storyprompt.png"> 
+            <button class="storySkip" id="yesView" href="#" >YES</button>
+            <button class="storySkip" id="noView" href="#" >NO</button>
+            <!--The Story-->
+            <img class="story" id="storytext" src="images/storytext.png">
+            <button class="story" id="ok" href="#" >OK</button>
+            <!--Win-->
+            <img class="won" id="winart" src="images/awinnerisyou.png">
+            <img class="won" id="wintext" src="images/wintext.png">
+            <button class="won" id="backToMenu">Menu</button>
+            <button class="won" id="backToBattle">Cave</button>
+            
+            <!--Game Over-->
+            <img class="gameOver" id="gameoverscreen" src="images/welcometodie.png">
+            <button class="gameOver" id="loseToMenu">Menu</button>
+            
+                   <!--The Battle Screen-->
+           <img class="battle" id="monster" src="images/dogeanimation.gif">
+           <img class="battle" id="battlescreen" src="images/battlescreen.png"> 
+            
+        <!--   <canvas class="battle" id="monster">Monster</canvas> -->
         <!--The character canvas could be used here as well?-->
         <p class="battle" id="question">?Question?</p>
         <p class="battle" id="timer">Time Remaining: ns</p>
@@ -137,11 +151,12 @@
         	but makes the game run smoother-->
         <button class="battle" id="toShop" href="#">Shop</button>
         <p class="battle shop" id="showMoney">Money: $0</p>
-        
-        <!--The Shop-->
-        <button class="shop" id="key" src="#" href="#">Key: $500</button>
-        <button class="shop" id="toBattle" href="#">Back</button>
-          
-                 
+            
+            <!--The Shop-->
+            <img class="shop" id="shopscreen" src="images/store.png">
+            <button class="shop" id="key" src="#" href="#">Key: $500</button>
+            <button class="shop" id="toBattle" href="#">Back</button>
+              
+            
     </body> 
 </html>
