@@ -196,7 +196,7 @@ function createQuestion(term){
         	numbers[i-1]=0;
         }
         if(answer==='/') {
-        	numbers[i]=parseInt(numbers[i])/parseInt(numbers[i-1]);
+        	numbers[i]=parseInt(numbers[i-1])/parseInt(numbers[i]);
         	numbers[i-1]=0;
         }
 
