@@ -4,7 +4,6 @@
  * @since: Wednesday, October 30, 2013
  */
 
-
 /**
  * the Menu Screen
  * all elements are visible initially
@@ -87,19 +86,20 @@ var character = new Character();
 $(function(){
         $("#yesView").click(function() {
                 $(".storySkip").css("visibility", "hidden");
-                $(".story").css("visibility", "visible");
-                $("#question").text(createQuestion(2, "noPower"));                        
+                $(".story").css("visibility", "visible");                        
         });
         $("#noView").click(function() {
                 $(".storySkip").css("visibility", "hidden");
-                $(".battle").css("visibility", "visible");
-                $("#question").text(createQuestion(2, "noPower"));                
+                $(".customization").css("visibility", "visible");
+                 
         });
 });
 $(function(){
         $("#ok").click(function() {
-                $(".story").css("visibility", "hidden");
-                $(".battle").css("visibility", "visible");
+                $(".story").css("visibility", "hidden"); 
+                $(".customization").css("visibility", "visible");
+                               
+
         });
 });
 $(function(){
@@ -108,12 +108,30 @@ $(function(){
                 $(".menu").css("visibility", "visible");
         });
 });
+$(function(){
+        $("#backToBattle").click(function() {
+                $(".won").css("visibility", "hidden");
+                $(".battle").css("visibility", "visible");
+        });
+});
 
+
+/**
+ * the customization screen
+ */
+$(function(){
+        $("#doneCus").click(function() {
+                $(".customization").css("visibility", "hidden");
+                $(".battle").css("visibility", "visible");
+                $("#question").text(createQuestion(2));
+        });
+});
 
 
 /**
  * the battle screen
  */
+
 var answer = -1;
 var isCharacterDead = false;
 function setIsCharacterKilled(dead) {
@@ -123,10 +141,24 @@ function createMonster(type) {
     // some code to change the monster...
 }// end createMonster
 function death() {
-    // when something (?) is dead
-    document.write("Game Over");
+    // when character is dead
+    $(".battle").css("visibility", "hidden");
+    $(".gameOver").css("visibility", "visible");
+    $("#loseToMenu").click(function(){
+                $(".gameOver").css("visibility", "hidden");
+                $(".menu").css("visibility", "visible");
+    });
 }// end death
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
 
+//@TO DO: fix problems with the power terms
 /**
  * generates a random opeeration sign in an expression that will be generated
  * @ return a random opertation sign that might be +, -, *, or /
@@ -176,13 +208,13 @@ function createQuestion(term){
     var addOrMultiply = Math.round(Math.random());// 0 -> *, 1 -> + or -
     
     for(var i=0; i<term; i++) {
-    	
+            
         if(answer!=='/') {
             if((answer==='*'&&term>=3)||addOrMultiply===0) {
                  numbers[i]=Math.round(Math.random()*10);// only want small integers for multiplication involving many numbers
             }
             else
-            	numbers[i] = generateRandomNaturalNumber();               
+                    numbers[i] = generateRandomNaturalNumber();               
         }
         else {
                 numbers[i] = Math.floor(Math.random()*10)+1;//preventing a negative and making the number as small as required               
@@ -192,39 +224,39 @@ function createQuestion(term){
             numbers[i] = parseInt(numbers[i])*(-1);
         }
         if(answer==='*') {
-        	numbers[i]=parseInt(numbers[i])*parseInt(numbers[i-1]);
-        	numbers[i-1]=0;
+                numbers[i]=parseInt(numbers[i])*parseInt(numbers[i-1]);
+                numbers[i-1]=0;
         }
         if(answer==='/') {
-        	numbers[i]=parseInt(numbers[i-1])/parseInt(numbers[i]);
-        	numbers[i-1]=0;
+                numbers[i]=parseInt(numbers[i-1])/parseInt(numbers[i]);
+                numbers[i-1]=0;
         }
 
         //since the curriculum has certain expectations that restricts the types of question, 
         // more conditions will be added to fit with them
         if(i!==term-1) {
-        	if(term===2) {
-                questionString += generateRandomSign();// any operation would be ok        		
-        	}
-        	else if(term>2) {
-        		if(addOrMultiply===0) // just *
+                if(term===2) {
+                questionString += generateRandomSign();// any operation would be ok                        
+                }
+                else if(term>2) {
+                        if(addOrMultiply===0) // just *
                     questionString += " * ";
                 else { // + or -
-                	if(Math.round(Math.random())===1)
-                	    questionString += " + ";
+                        if(Math.round(Math.random())===1)
+                            questionString += " + ";
                     else
                         questionString += " - ";
                 }// end if-else, special conditions that fits the curriculum 
-        	}
-        	else// this should not be reached as the term cannot be 1 and the students have not learned orders of operation
+                }
+                else// this should not be reached as the term cannot be 1 and the students have not learned orders of operation
                 questionString += generateRandomSign();
             answer=questionString.charAt(questionString.length-2);// use answer to temporarily record the operation
         }
-    //	alert(numbers[i]);
+    //        alert(numbers[i]);
     }// end for
     answer = 0;
     for(var i=0; i<numbers.length; i++) {
-    	answer = parseInt(answer) + parseInt(numbers[i]);
+            answer = parseInt(answer) + parseInt(numbers[i]);
     }// end for
     // checks for negative answers
     if(answer<0) {
@@ -245,30 +277,9 @@ function createQuestion(term){
  * 
  * @ return 
  */
-function createSpecialDivisionQuestion() {
-    var questionString;
-    questionString = generateBigNumber();
-    if(Math.round(Math.random())===1) {
-        questionString = parseInt(questionString) + parseInt(generateBigNumber());
-        answer = parseInt(questionString)/100;
-        questionString = questionString + " / 100 = ?";
-    }
-    else {
-        questionString = parseInt(questionString) + parseInt(Math.random()*10+1);
-        answer = parseInt(questionString)/10;        
-        questionString = questionString + " / 10 = ?";
-    }// end if-else
-    return questionString;
-}
-/**
- * checks whether if the answer from the user is right
- * @ decimal how many decimal places the generated answer is rounded to
- * @ return whether if the answer is correct
- */
 function checkAnswer(decimal) {
     return parseFloat($("#userAnswer").val()) === Math.round(answer*(Math.pow(10, decimal))/(Math.pow(10, decimal)));
 }// end checkAnswer
-
 $(function(){
         $("#submitAnswer").click(function() {
                 alert(checkAnswer(1));
