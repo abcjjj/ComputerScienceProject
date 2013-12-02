@@ -5,12 +5,12 @@
               content="text/html; charset=UTF-8"> 
         <title>Math Monsters</title> 
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-            <script type="text/javascript" src="jquery-2.0.3.js"></script>
-                   <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="jquery-2.0.3.js"></script>
+        <script type="text/javascript" src="script.js"></script>
     </head> 
     <body> 
-            
-        <canvas id="myCanvas">canvasfailedtext</canvas>  
+        
+        <canvas id="myCanvas">#</canvas>  
         <!--The Menu Screen-->
         <img class="menu" id="title" src="images/title.png">
         <button class="menu" id="start" href="#" >START</button> 
@@ -18,66 +18,130 @@
         <button class="menu" id="settings" href="#" >SETTINGS</button>
         <button class="menu" id="savedgames" href="#" >SAVED GAMES</button>
 
-	    <!--The Instructions Screen-->
-	    <button class="instructions" id="instructionstoMenu" href="#" >Back</button>
-			
-	    <!--The Settings Screen-->
-	    <button class="settings" id="settingstoMenu" href="#" >Back</button>
-	    <form class="settings" id="difficulties">
-            <input type="radio" name="level" class="settings" id="easy" value="easy">Easy
-            <input type="radio" name="level" class="settings" id="medium" value="medium">Medium
-            <input type="radio" name="level" class="settings" id="hard" value="hard">Hard
-            <input type="radio" name="level" class="settings" id="crazy" value="crazy">Crazy            
+		<!--The Instructions Screen-->
+		<button class="instructions" id="instructionstoMenu" href="#" >Back</button>
+		
+		<!--The Settings Screen-->
+		<button class="settings" id="settingstoMenu" href="#" >Back</button>
+        <form class="settings" id="difficulties">Difficulty Levels<br>
+            <input type="radio" name="level" class="levelRadio" class="settings" id="easy" value="easy">Easy
+            <input type="radio" name="level" class="levelRadio" class="settings" id="medium" value="medium">Medium
+            <input type="radio" name="level" class="levelRadio" class="settings" id="hard" value="hard">Hard
+            <input type="radio" name="level" class="levelRadio" class="settings" id="crazy" value="crazy">Crazy            
         </form> 
-	    <form action="" class="settings" id="BGM">
-	        Background Music
-		    <select name="">
-		    <option value="XX" class="settings" id="xx">XX</option><!--yet to be decided-->
-		    </select>
-		</form>
-		<form action="" class="settings" id="Timing">
-		    Timing
-			<select name="">
-			<option value="XX" class="settings" id="xx">XX</option><!--yet to be decided-->
-			</select>
-		</form>
-	    
-	        <!--The Saved Games Screen-->
-            <button class="savedgames" id="savedgamestoMenu" href="#" >Back</button>
-            
-            <!--Customizations : add a bunch of forms - or buttons?-->
-            
-            
+        <form action="" class="settings" id="BGM">
+            Background Music
+                <select name="">
+                <option value="XX" class="settings" id="xx">XX</option><!--yet to be decided-->
+                </select>
+        </form>
+        <form action="" class="settings" id="timing">
+            Timing
+            <select name="time">
+                <option value="15" class="settings" id="time15">15</option>
+                <option value="30" class="settings" id="time30">30</option>
+                <option value="45" class="settings" id="time45">45</option>
+                <option value="60" class="settings" id="time60">60</option>                    
+            </select>
+        </form>
+		
+		<!--The Customization Screen-->
+		<button class="customization" id="doneCus" href="#" >Done!</button>
+		<canvas id="characterCanvas">#</canvas>  
+        <form class="customization" id="genders">Gender<br>
+            <input type="radio" name="gender" class="genderRadio" class="customization" id="femaleRadio" value="female">Girl    OR    
+            <input type="radio" name="gender" class="genderRadio" class="customization" id="maleRadio" value="male">Boy       
+        </form> 			
+		<form action="" class="customization" id="eyes">
+            Eye:
+            <select name="eye">
+                <option value="Eye1" class="customization" id="eye1">Eye1</option> 
+                <option value="Eye2" class="customization" id="eye2">Eye2</option>  
+                <option value="Eye3" class="customization" id="eye3">Eye3</option>                 
+            </select>
+        </form>
+		<form action="" class="customization" id="mouth">
+            Mouth:
+            <select name="mouth">
+                <option value="Mouth1" class="customization" id="mouth1">Mouth1</option> 
+                <option value="Mouth2" class="customization" id="mouth2">Mouth2</option>  
+                <option value="Mouth3" class="customization" id="mouth3">Mouth3</option>                  
+            </select>
+        </form>
+        <form action="" class="customization" id="accessory">
+            Accessory:
+            <select name="accessory">
+            	<option value="Accessory1" class="customization" id="accessory1">Accessory1</option> 
+                <option value="Accessory2" class="customization" id="accessory2">Accessory2</option>  
+                <option value="Accessory3" class="customization" id="accessory3">Accessory3</option>                  
+            </select>
+        </form>
+        <form action="" class="customization" id="nose">
+            Nose:
+            <select name="nose">
+                <option value="Nose1" class="customization" id="n">Nose1</option> 
+                <option value="Nose2" class="customization" id="nose2">Nose2</option>  
+                <option value="Nose3" class="customization" id="nose3">Nose3</option>  	                
+            </select>
+        </form>
+        <form action="" class="customization" id="skinColor">
+            Skin Color:
+            <select name="skin color">
+            	<option value="Skin Color1" class="customization" id="skinColor1">Skin Color 1</option> 
+                <option value="Skin Color2" class="customization" id="skinColor2">Skin Color 2</option>  
+                <option value="Skin Color3" class="customization" id="skinColor3">Skin Color 3</option>                 
+            </select>
+        </form>
+        <form action="" class="customization" id="hair">
+            Hair:
+            <select name="hair">
+            	<option value="Hair1" class="customization" id="hair1">Hair 1</option> 
+                <option value="Hair2" class="customization" id="hair2">Hair 2</option>  
+                <option value="Hair3" class="customization" id="hair3">Hair 3</option>                 
+            </select>
+        </form>
+        	
+		<!--The Saved Games Screen-->
+        <button class="savedgames" id="savedgamestoMenu" href="#" >Back</button>
+        
+        
         <!--The Transistion Screens-->
         <!--Choosing to skip the story-->
         <img class="storySkip" id="storyprompt" src="images/storyprompt.png"> 
         <button class="storySkip" id="yesView" href="#" >YES</button>
         <button class="storySkip" id="noView" href="#" >NO</button>
-        <!--The Story-->
+        <!--The Instructions-->
         <img class="story" id="storytext" src="images/storytext.png">
         <button class="story" id="ok" href="#" >OK</button>
-        
-        
         <!--Win-->
         <p class="won" id="congratulations">You Won!</p>
         <button class="won" id="backToMenu">Menu</button>
         
         <!--The Battle Screen-->
-        <img class="battle" id="monster" src="images/dogeanimation.gif">
+        <!--<img class="battle" id="monster" src="images/dogeanimation.gif">--><!--This should be changed into a canvas???-->
+        <canvas class="battle" id="monster">Monster</canvas>
+        <!--The character canvas could be used here as well?-->
         <p class="battle" id="question">?Question?</p>
-        
+        <p class="battle" id="timer">Time Remaining: ns</p>
         <form class="battle" id="answerInput">
-        Your Answer: <input class="battle" id="userAnswer" type="number"name="answer">
+        Your Answer: <br>
+            <input class="battle" id="userAnswer" type="number"name="answer">
         </form>
-        
-        <button class="battle" id="submitAnswer" href="#">Submit</button>
+        <canvas class="battle" id="monsterLives">Monster HP</canvas>
+        <canvas class="battle" id="characterLives">Character HP</canvas>
+        <button class="battle" id="item1" href="#">Item1</button> <!--Some items from the shop-->
+        <button class="battle" id="item2" href="#">Item2</button>
+        <button class="battle" id="submitAnswer" href="#">Attack</button>        
+                        
+        <!--The following section might fall under the "action" interface which is not one of the requirements, 
+        	but makes the game run smoother-->
         <button class="battle" id="toShop" href="#">Shop</button>
         <p class="battle shop" id="showMoney">Money: $0</p>
         
         <!--The Shop-->
         <button class="shop" id="key" src="#" href="#">Key: $500</button>
         <button class="shop" id="toBattle" href="#">Back</button>
-              
-                     
+          
+                 
     </body> 
 </html>
