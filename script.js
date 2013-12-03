@@ -121,9 +121,9 @@ $(function(){
  */
 $(function(){
         $("#doneCus").click(function() {
+                $("#question").text(createQuestion(2));
                 $(".customization").css("visibility", "hidden");
                 $(".battle").css("visibility", "visible");
-                $("#question").text(createQuestion(2));
         });
 });
 
@@ -179,7 +179,7 @@ function generateRandomSign() {
  * generates a random 1-digit or 2-digit natrual number
  * @ return the number generated
  */
-function generateRandomNatrualNumber() {
+function generateRandomNaturalNumber() {
     if(Math.floor(Math.random()*2)===1)
         return "" + Math.round(Math.random()*100);// 2 digits
     else // 1 digit
