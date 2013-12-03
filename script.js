@@ -202,61 +202,66 @@ function generateBigNumber() {
  * @ param type what type of terms will exsist within the expression
  * @ return the question randomly generated according to the parameters
  */
+/**
+ * creates the an expression that the user will evaluate
+ * @ param term how many terms there will be in the expression
+ * @ param type what type of terms will exsist within the expression
+ * @ return the question randomly generated according to the parameters
+ */
+//@TO DO make it fit the Grade-4 expectations; nedd to rewrite the function through using the new rationale
 function createQuestion(term){
     var questionString = "";// would mainly consist of the expression
     var numbers = new Array();
     var addOrMultiply = Math.round(Math.random());// 0 -> *, 1 -> + or -
     
     for(var i=0; i<term; i++) {
-            
+    	
         if(answer!=='/') {
             if((answer==='*'&&term>=3)||addOrMultiply===0) {
                  numbers[i]=Math.round(Math.random()*10);// only want small integers for multiplication involving many numbers
             }
             else
-                    numbers[i] = generateRandomNaturalNumber();               
+            	numbers[i] = generateRandomNaturalNumber();               
         }
         else {
                 numbers[i] = Math.floor(Math.random()*10)+1;//preventing a negative and making the number as small as required               
         }// end if-else
         questionString += numbers[i];
         if(answer==='-') {
-            numbers[i] = parseInt(numbers[i])*(-1);
+            numbers[i] = parseFloat(numbers[i])*(-1);
         }
         if(answer==='*') {
-                numbers[i]=parseInt(numbers[i])*parseInt(numbers[i-1]);
-                numbers[i-1]=0;
+        	numbers[i]=parseFloat(numbers[i])*parseFloat(numbers[i-1]);
+        	numbers[i-1]=0;
         }
         if(answer==='/') {
-                numbers[i]=parseInt(numbers[i-1])/parseInt(numbers[i]);
-                numbers[i-1]=0;
+        	numbers[i]=parseFloat(numbers[i-1])/parseFloat(numbers[i]);
+        	numbers[i-1]=0;
         }
 
-        //since the curriculum has certain expectations that restricts the types of question, 
-        // more conditions will be added to fit with them
         if(i!==term-1) {
-                if(term===2) {
-                questionString += generateRandomSign();// any operation would be ok                        
-                }
-                else if(term>2) {
-                        if(addOrMultiply===0) // just *
+        	if(term===2) {
+                questionString += generateRandomSign();// any operation would be ok        		
+        	}
+        	else if(term>2) {
+        		if(addOrMultiply===0) // just *
                     questionString += " * ";
                 else { // + or -
-                        if(Math.round(Math.random())===1)
-                            questionString += " + ";
+                	if(Math.round(Math.random())===1)
+                	    questionString += " + ";
                     else
                         questionString += " - ";
                 }// end if-else, special conditions that fits the curriculum 
-                }
-                else// this should not be reached as the term cannot be 1 and the students have not learned orders of operation
+        	}
+        	else// this should not be reached as the term cannot be 1 and the students have not learned orders of operation
                 questionString += generateRandomSign();
             answer=questionString.charAt(questionString.length-2);// use answer to temporarily record the operation
         }
-    //        alert(numbers[i]);
+    //	alert(numbers[i]);
     }// end for
     answer = 0;
     for(var i=0; i<numbers.length; i++) {
-            answer = parseInt(answer) + parseInt(numbers[i]);
+    	answer = parseFloat(answer) + parseFloat(numbers[i]);
     }// end for
     // checks for negative answers
     if(answer<0) {
@@ -274,11 +279,12 @@ function createQuestion(term){
     return questionString + " = ?";
 }// end createQuestion
 /**
- * 
- * @ return 
+ * checks whether if the answer from the user is right
+ * @ decimal how many decimal places the generated answer is rounded to
+ * @ return whether if the answer is correct
  */
 function checkAnswer(decimal) {
-    return parseFloat($("#userAnswer").val()) === Math.round(answer*(Math.pow(10, decimal))/(Math.pow(10, decimal)));
+    return parseFloat($("#userAnswer").val()) === Math.floor(answer*(Math.pow(10, decimal)))/(Math.pow(10, decimal));
 }// end checkAnswer
 $(function(){
         $("#submitAnswer").click(function() {
