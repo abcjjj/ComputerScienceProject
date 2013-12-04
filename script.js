@@ -202,13 +202,6 @@ function generateBigNumber() {
  * @ param type what type of terms will exsist within the expression
  * @ return the question randomly generated according to the parameters
  */
-/**
- * creates the an expression that the user will evaluate
- * @ param term how many terms there will be in the expression
- * @ param type what type of terms will exsist within the expression
- * @ return the question randomly generated according to the parameters
- */
-//@TO DO make it fit the Grade-4 expectations; nedd to rewrite the function through using the new rationale
 function createQuestion(term){
     var questionString = "";// would mainly consist of the expression
     var numbers = new Array();
