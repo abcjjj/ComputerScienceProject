@@ -83,6 +83,117 @@ function TypeControl() {
 }// end constructor
 var typeControl = new TypeControl();
 
+function Clock() {
+	const CLOCK_PRICE = 25;
+	this.clockUse = function() {
+		if(character.getClockNumber()>0) {
+			character.setClcckNumber(character.getClockNumber()--);// 1 clock comsumed
+			timer.setCurrentTime(timer.getCurrentTime()+=10);// give 10 extra seconds
+		}
+	}// end clockUsed
+	this.getClockPrice = function() {
+		return CLOCK_PRICE;
+	}// end accessor
+	this.clockBuy = function() {
+		if(character.getMoney()>=25) {
+			if(confirm("Are you sure?")) {
+				character.setClockNumber(character.getClockNumber()++);
+				character.setMoney(character.getMoney()-=CLOCK_PRICE);
+			}
+		}
+		else
+			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+	}// end buyHeart
+}// end constructor
+var clock = new Clock();
+
+function Heart() {
+	const HEART_PRICE = 75;
+	this.getHeartPrice = function() {
+		return HEART_PRICE;0
+	}// end accessor
+	this.heartBuy = function() {
+		if(character.getMoney()>=75) {
+			if(confirm("Are you sure?")) {
+				character.setLifePoints(character.getLifePoints()++);
+				character.setMoney(character.getMoney()-=HEART_PRICE);
+			}
+		}
+		else
+			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+	}// end heartBuy
+}// end constructor
+var heart = new Heart();
+
+function Shield() {
+	var shieldPrice = 500;
+	this.shieldBuy = function() {
+		if(character.getMoney()>=shieldPrice) {
+			if(confirm("Are you sure?")) {
+				character.setLifePoints(character.getShieldUpgrade()++);
+				character.setMoney(character.getMoney()-=shieldPrice);
+				shieldPrice += 500;// the price goes up
+			}
+		}
+		else
+			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+	}// end shieldBuy
+	/**
+	 *Determines whether the user envades the monster's attack upon giving a wrong answer 
+	 */
+	this.isEnvaded = function() {
+		if(Math.floor(Math.random())<0.5-0.5*Math.pow(0.5, character.getShieldUpgrade()))
+			return true;// P(s) = 0.5 - 0.5^(s+1), where P represents the probability of an envasion, and s represent the level of the shield upgrade
+		else
+			return false;
+	}// end shield 
+}// end constructor
+var shield = new Shield();
+
+function Weapon() {
+	var weaponPrice = 500;
+	this.weaponBuy = function() {
+		if(character.getMoney()>=weaponPrice) {
+			if(confirm("Are you sure?")) {
+				character.setWeaponUpgrade(character.getWeaponUpgrade()++);
+				character.setMoney(character.getMoney()-=weaponPrice);
+			}
+		}
+		else
+			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+	}// end weaponBuy
+	
+	/*
+	 *how should this affect the battle?
+	 */
+	
+}// end constructor
+var weapon = new Weapon();
+
+function Brain() {
+	const BRAIN_PRICE = 50;
+	this.brainBuy = function() {
+		if(character.getMoney()>=BRAIN_PRICE) {
+			if(confirm("Are you sure?")) {
+				character.setBrainNumber(character.getBrainNumber()++);
+				character.setMoney(character.getMoney()-=BRAIN_PRICE);
+			}
+		}
+		else
+			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+	}// end brainBuy
+	this.brainUse = function() {
+		if(character.getBrainNubmer()>0) {
+			character.setBrainNumber(character.getBrainNumber()--);
+			hint();
+		}
+	}// end brainUse
+	function hint() {
+		// what type(s) of hints should be given?
+	}// end hint
+}// end constructor
+var brain = new Brain();
+
 // action events
 $(function(){
 	
@@ -336,7 +447,12 @@ function Timer() {
     this.setTotalTime = function(time) {
     	totalTime = time;
     }// end mutator
-    
+    this.getCurrentTime = function() {
+    	return currentTime;
+    }// end accessor
+    this.setCurrentTime = function(t) {
+    	currentTime = t;
+    }// end mutator
 }// end constructor
 var timer = new Timer();
 
