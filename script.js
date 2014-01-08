@@ -223,15 +223,18 @@ function StageControl() {
 	 */
 	function unlockMedium() {
 		$("#stage2").prop("disabled", false);
-		$("#lock2").remove();		
+		$("#lock2").removeClass("stageSelection");	
+		$("#lock2").css("visibility", "hidden");	
 	}// end unlockMedium
 	function unlockHard() {
 		$("#stage3").prop("disabled", false);
-		$("#lock3").remove();
+		$("#lock3").removeClass("stageSelection");
+		$("#lock3").css("visibility", "hidden");
 	}// end unlockHard
 	function unlockCrazy() {
 		$("#stage4").prop("disabled", false);
-		$("#lock4").remove();		
+		$("#lock4").removeClass("stageSelection");	
+		$("#lock4").css("visibility", "hidden");	
 	}// end unlockCrazy	
 	
 }// end constructor
@@ -317,6 +320,7 @@ $(function(){
             if($("#maleRadio").is(':checked'))
             	character.setGender("male");       
             character.setLifePoints(5);// every relevant variable is reinitialized manually
+            character.clearCharacterLPCanvas();
             character.setMoney(500);
             character.setClockNumber(0);
             character.setBrainNumber(0);
@@ -488,7 +492,8 @@ $(function(){
                 $(".hub").css("visibility", "visible");
                 stageControl.setBossAppear(stageControl.getBossAppear()+1);
                 stageControl.clearStage();
-                monster.resetMonsterType();                    
+                monster.resetMonsterType();  
+                removeContent();                  
 			}
 			else
 				startBattle();
@@ -500,6 +505,7 @@ $(function(){
         		if(character.getLifePoints()<=0) { // check if the character is dead
             		alert("Oh no! You are defeated by the monster!");
             		character.death();
+            		removeContent(); 
             	}
             	else
             		startBattle();
@@ -544,18 +550,29 @@ function saveGame() {
 	localStorage.clockNumber = character.getClockNumber();
 	localStorage.weaponPrice = weapon.getWeaponPrice();
 	localStorage.shieldPrice = shield.getShieldPrice();
+	alert(localStorage.isCrazyUnlocked);
 }// end saveGame
 /**
  * this function loads the saved process of the game
  */
 function readGame() {
-	stageControl.setIsMediumUnlocked(localStorage.isMediumUnlocked);
-	stageControl.setIsHardUnlocked(localStorage.isHardUnlocked);
-	stageControl.setIsCrazyUnlocked(localStorage.isCrazyUnlocked);	
+	if(localStorage.isMediumUnlocked==="true")
+		stageControl.setIsMediumUnlocked(true);
+	else
+		stageControl.setIsMediumUnlocked(false);
+	if(localStorage.isHardUnlocked==="true")
+		stageControl.setIsHardUnlocked(true);
+	else
+		stageControl.setIsHardUnlocked(false);
+	if(localStorage.isCrazyUnlocked==="true")
+		alert(stageControl.getIsCrazyUnlocked());
+	else
+		stageControl.setIsCrazyUnlocked(false);		
 	stageControl.setBossAppear(localStorage.bossAppear);	
 	character.setMoney(localStorage.money);
 	character.setGender(localStorage.gender);
 	character.setLifePoints(localStorage.lifePoints);
+	character.clearCharacterLPCanvas();	
 	character.setWeaponUpgrade(localStorage.weaponUpgrade);
 	character.setShieldUpgrade(localStorage.shieldUpgrade);
 	character.setBrainNumber(localStorage.brainNumber);
@@ -569,6 +586,13 @@ function readGame() {
 	setFemaleImage();
 	
 }// end readGame
+/**
+ * removes the contents of the canvas when they are not supposed to show up
+ */
+function removeContent() {
+	character.clearCharacterLPCanvas();
+	monster.clearMonsterLPCanvas();
+}// end removeContent
 /**
  * moves the girl character to the left of the screen 
  */
@@ -628,6 +652,7 @@ function Timer() {
     		    if(character.getLifePoints()<=0) {
             		alert("Oh no! You are defeated by the monster!");
             		character.death();
+            		removeContent(); 
             	}
 	    	}// end if-else	    	
 	    },1000);
@@ -707,6 +732,7 @@ function Monster() {
     			break;
     		default:
     			$("#monster").css("visibility", "visible");// <- the original doge
+    		changeMonsterLives();
     	}// end switch case
     	
     };// end setImage
@@ -722,6 +748,11 @@ function Monster() {
 	            context.drawImage(imageObj, 20*i, 0);
 	    };
 	}// end changeMonsterLives
+    this.clearMonsterLPCanvas = function() {
+    	var canvas = document.getElementById("monsterLives");
+    	var context = canvas.getContext('2d');
+    	context.clearRect(0,0,canvas.width,canvas.height);	
+    };// end clearMonsterLPCanvas
     
 	/**
 	 * resets the monster type after a forced conversion into robot or boss 
@@ -774,6 +805,7 @@ function Character() {
     		$("#girlSprite").css("visibility", "hidden");// hide girl for boy, and vice versa
     	else// is female
     		$("#boySprite").css("visibility", "hidden");
+    	changeCharacterLives();
     };// end setImage   
     
     // battle-related functions
@@ -830,6 +862,11 @@ function Character() {
 	            context.drawImage(imageObj, 20*i, 0);
 	    };
 	}// end changeCharacterLives
+    this.clearCharacterLPCanvas = function() {
+    	var canvas = document.getElementById("characterLives");
+    	var context = canvas.getContext('2d');
+    	context.clearRect(0,0,canvas.width,canvas.height);	
+    };// end clearMonsterLPCanvas
 	
 	this.death = function() {
 	    // when character is dead
