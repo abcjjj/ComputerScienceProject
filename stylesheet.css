@@ -1,15 +1,13 @@
 /*Temporarily serves as the "box" of the playbox screen*/
 #myCanvas {
-        visibility:visible; 
-        position:absolute; 
-        top:0px; 
-        left:0px;
-        border:1px solid #000000;
-        width:1023px;
-        height:599px;
-        z-index:-2;
-        
-        
+	    visibility:visible; 
+	    position:absolute; 
+	    top:0px; 
+	    left:0px;
+	    border:1px solid #000000;
+	    width:1023px;
+	    height:599px;
+	    z-index:-2;
 }
 
 /*Style for all buttons (temp.)*/
@@ -85,18 +83,17 @@ button:active {
 }
 
 #settings {
-	visibility:visible; 
-    position:absolute; 
-    top:310px; 
-    left:565px;
+		visibility:visible; 
+	    position:absolute; 
+	    top:310px; 
+	    left:565px;
 }
 #loadGame {
-	visibility:visible; 
-    position:absolute; 
-    top:390px; 
-    left:650px;
+		visibility:visible; 
+		position:absolute; 
+		top:390px; 
+		left:650px;
 }
-
 
 /*Transitions*/
 .transitionSkip {
@@ -157,11 +154,11 @@ button:active {
         left:600px;
 }
 #winart {
-            visibility:hidden;
-            position:absolute;
-            top:0px;
-            left:0px;
-            z-index:-1;
+        visibility:hidden;
+        position:absolute;
+        top:0px;
+        left:0px;
+        z-index:-1;
 }
 #wintext {
 		visibility:hidden;
@@ -172,16 +169,16 @@ button:active {
 }
 
 .gameOver {
-            visibility:hidden;
+        visibility:hidden;
 }
 #loseToMenu {
-            visibility:hidden;
+        visibility:hidden;
         position:absolute; 
         top:350px; 
         left:400px;
 }
 #gameoverscreen {
-            visibility:hidden;
+        visibility:hidden;
         position:absolute; 
         top:0px; 
         left:0px;
@@ -198,11 +195,24 @@ button:active {
         top:10px; 
         left:10px;
 }
-#BGM {
-        visibility:hidden;
-        position:absolute;
-        top:240px;
-        left:100px;		
+#sound {
+	    visibility:hidden;
+	    position:absolute;
+	    top:120px;
+	    left:50px;		
+	    font-size:18px;
+}
+#turnSound {
+	    visibility:hidden;
+	    position:absolute;
+	    top:160px;
+	    left:50px;		
+}
+#individualSounds {
+	    visibility:hidden;
+	    position:absolute;
+	    top:250px;
+	    left:50px;		
 }
 
 /*The customization screen*/
@@ -243,54 +253,54 @@ button:active {
 
 /*Stage selection*/
 .stageSelection {
-	visibility:hidden;
-	position:absolute;
-	top:0px;
-	left:0px;
-	z-index:-1;
+		visibility:hidden;
+		position:absolute;
+		top:0px;
+		left:0px;
+		z-index:-1;
 }
 #stage1 {
-	visibility:hidden;
-	position:absolute;
-	top:50px;
-	left:100px;
+		visibility:hidden;
+		position:absolute;
+		top:50px;
+		left:100px;
 }
 #stage2 {
-	visibility:hidden;
-	position:absolute;
-	top:50px;
-	left:800px;
+		visibility:hidden;
+		position:absolute;
+		top:50px;
+		left:800px;
 }
 #stage3 {
-	visibility:hidden;
-	position:absolute;
-	top:400px;
-	left:100px;
+		visibility:hidden;
+		position:absolute;
+		top:400px;
+		left:100px;
 }
 #stage4 {
-	visibility:hidden;
-	position:absolute;
-	top:400px;
-	left:800px;
+		visibility:hidden;
+		position:absolute;
+		top:400px;
+		left:800px;
 }
 /*locks*/
 #lock2 {
-	visibility:hidden;
-	position:absolute;
-	top:70px;
-	left:750px;
+		visibility:hidden;
+		position:absolute;
+		top:70px;
+		left:750px;
 }
 #lock3 {
-	visibility:hidden;
-	position:absolute;
-	top:420px;
-	left:150px;
+		visibility:hidden;
+		position:absolute;
+		top:420px;
+		left:150px;
 }
 #lock4 {
-	visibility:hidden;
-	position:absolute;
-	top:420px;
-	left:750px;
+		visibility:hidden;
+		position:absolute;
+		top:420px;
+		left:750px;
 }
 
 /*Hub screen elements*/
@@ -490,7 +500,13 @@ button:active {
         top:530px; 
         left:880px;
 }
-
+#hint {
+        visibility:hidden; 
+        position:absolute; 
+        top:290px; 
+        left:350px;	
+        color: WHITE;
+}
 
 /*The shop*/
 .shop {
@@ -602,26 +618,22 @@ button:active {
 
 /*The instructions/how to play screen*/
 .instructions{
-            visibility:hidden;
+        visibility:hidden;
 }
 
 #instructionstoMenu{
-            visibility:hidden;
+        visibility:hidden;
         position:absolute; 
         top:10px; 
         left:10px;
 }
 #instructionsimg{
-	visibility:hidden;
-	position:absolute;
-	top:0px;
-	left:0px;
-	z-index:-1;
+		visibility:hidden;
+		position:absolute;
+		top:0px;
+		left:0px;
+		z-index:-1;
 }
-
-
-
-
 
 
 /*The saved games screen*/
@@ -629,13 +641,13 @@ button:active {
 	 visibility:hidden;
 }
 #savedgamestoMenu{
-            visibility:hidden;
+        visibility:hidden;
         position:absolute; 
         top:10px; 
         left:10px;
 }
 #sgtitle{
-            visibility:hidden;
+        visibility:hidden;
         position:absolute; 
         top:0px; 
         left:0px;
