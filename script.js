@@ -245,6 +245,7 @@ var stageControl = new StageControl();
 $(function(){
 	// a sound effect for all buttons
 	$("button").click(function() {
+		document.getElementById("buttonSound").load();	
 		document.getElementById("buttonSound").play();			
     });
 	/*
@@ -464,6 +465,7 @@ $(function(){
                		character.setMoney(character.getMoney()-10000);
                     $(".shop").css("visibility", "hidden");
                     $(".won").css("visibility", "visible");
+                    document.getElementById("winSound").load();
                     document.getElementById("winSound").play();
             	}
             }
@@ -502,43 +504,50 @@ $(function(){
     $("#submitAnswer").click(function() {
     	clearInterval(timeInterval);
         if(checkAnswer()) { 
+        	document.getElementById("punchSound").load();
         	document.getElementById("punchSound").play();
-			alert("Correcte: Tu attaque le monstre!");
-			monster.loseLifeMonster();
-			if(weapon.isCritical()) {
-				alert("Et c'etait une attaque critique!");
+        	setTimeout(function() {			//<- want to play the sound first
+        		alert("Correcte: Tu attaque le monstre!");
 				monster.loseLifeMonster();
-			}
-			if(monster.getLifePointsMonster()<=0) { // checks if the monster is dead
-				alert("Tu as vaincu le monstre!\n Vous recevez $" + monster.getMoneyGive());
-				character.setMoney(character.getMoney()+monster.getMoneyGive());
-				$(".battle").css("visibility", "hidden");
-				$(".ASDF").css("visibility", "hidden");
-                $(".hub").css("visibility", "visible");
-                stageControl.setBossAppear(stageControl.getBossAppear()+1);// add one
-                stageControl.clearStage();
-                monster.resetMonsterType();  
-                removeContent();                  
-			}
-			else
-				startBattle();
+				if(weapon.isCritical()) {
+					alert("Et c'etait une attaque critique!");
+					monster.loseLifeMonster();
+				}
+				if(monster.getLifePointsMonster()<=0) { // checks if the monster is dead
+					alert("Tu as vaincu le monstre!\n Vous recevez $" + monster.getMoneyGive());
+					character.setMoney(character.getMoney()+monster.getMoneyGive());
+					$(".battle").css("visibility", "hidden");
+					$(".ASDF").css("visibility", "hidden");
+	                $(".hub").css("visibility", "visible");
+	                stageControl.setBossAppear(stageControl.getBossAppear()+1);// add one
+	                stageControl.clearStage();
+	                monster.resetMonsterType();  
+	                removeContent();                  
+				}
+				else
+					startBattle();
+			}, 500);
         }
         else {
+        	document.getElementById("hitSound").load();
         	document.getElementById("hitSound").play();
-        	alert("Mal reponse: Le monstre t'attaque!");
-        	if(shield.isEvaded() == false){	     
-        		character.loseLife();       	
-        		if(character.getLifePoints()<=0) { // check if the character is dead
-            		alert("Oh non! Tu est vaincu par le monstre!");
-            		character.death();
-            		removeContent(); 
-            	}
-            	else
-            		startBattle();
-            }
-            else {
-            	alert("Mais tu esquive le attaque!");
-            }// end if-else
+        	setTimeout(function() {
+        		alert("Mal reponse: Le monstre t'attaque!");
+	        	if(shield.isEvaded() == false){	     
+	        		character.loseLife();       	
+	        		if(character.getLifePoints()<=0) { // check if the character is dead
+	            		alert("Oh non! Tu est vaincu par le monstre!");
+	            		character.death();
+	            		removeContent(); 
+	            	}
+	            	else
+	            		startBattle();
+	            }
+	            else {
+	            	alert("Mais tu esquive le attaque!");
+	            	startBattle();
+	            }// end if-else
+        	}, 500);
         }// end if-else
     });
     $("#item1").click(function() {
@@ -671,7 +680,7 @@ function readGame() {
 	else
 		stageControl.setIsHardUnlocked(false);
 	if(localStorage.isCrazyUnlocked==="true")
-		alert(stageControl.getIsCrazyUnlocked());
+		stageControl.setIsCrazyUnlocked(true);
 	else
 		stageControl.setIsCrazyUnlocked(false);		
 	stageControl.setBossAppear(localStorage.bossAppear);	
@@ -690,7 +699,8 @@ function readGame() {
 	$(".menu").css("visibility", "hidden");
 	$(".stageSelection").css("visibility", "visible");
 	setFemaleImage();
-	
+	$("#buyFist").text("Surclasse: " + weapon.getWeaponPrice() + "$");
+	$("#buyShield").text("Surclasse: " + shield.getShieldPrice() + "$");
 }// end readGame
 /**
  * removes the contents of the canvas when they are not supposed to show up
@@ -720,7 +730,7 @@ function startBattle() {
     $("#hint").css("visibility", "hidden");
     // starting timer
     $("#question").text(questionGenerator.getQuestion());                  
-	$("#timer").text("Temps restant" + timer.getTotalTime()); // reset timing
+	$("#timer").text("Temps restant " + timer.getTotalTime()); // reset timing
 	timer.setCurrentTime(timer.getTotalTime());
 	timer.countDown();
 }// end startBattle
@@ -750,10 +760,11 @@ function Timer() {
 	    timeInterval=setInterval(function(){
 	    	if(this.currentTime!==0) {
 		    	currentTime--;
-		    	$("#timer").text("Temps restant" + currentTime);
+		    	$("#timer").text("Temps restant " + currentTime);
 	    	}
 	    	else {// currentTime == 0
 	    		clearInterval(timeInterval);
+	    		document.getElementById("hitSound").load();
 	    		document.getElementById("hitSound").play();
 	    		alert("Le temps est ecoule! The monster t'attaque!");
 	    		if(shield.isEvaded() == false)
@@ -985,6 +996,7 @@ function Character() {
 	    $(".ASDF").css("visibility", "hidden");
 	    $(".battle").css("visibility", "hidden");
 	    $(".gameOver").css("visibility", "visible");
+	    document.getElementById("loseSound").load();
 	    document.getElementById("loseSound").play();
 	    $("#loseToMenu").click(function(){
             $(".gameOver").css("visibility", "hidden");
@@ -1293,6 +1305,7 @@ function Clock() {
 				character.setClockNumber(temp);
 				temp = character.getMoney() - CLOCK_PRICE;
 				character.setMoney(temp);
+				document.getElementById("moneySound").load();
 				document.getElementById("moneySound").play();
 			}
 		}
@@ -1332,6 +1345,7 @@ function Heart() {
 				character.setLifePoints(temp);
 				temp = character.getMoney() - HEART_PRICE;
 				character.setMoney(temp);
+				document.getElementById("moneySound").load();
 				document.getElementById("moneySound").play();
 			}
 		}
@@ -1370,6 +1384,7 @@ function Shield() {
 				temp = character.getMoney() - shieldPrice;				
 				character.setMoney(temp);
 				shieldPrice += 500;// the price goes up
+				document.getElementById("moneySound").load();
 				document.getElementById("moneySound").play();
 			}
 		}
@@ -1422,6 +1437,7 @@ function Weapon() {
 				temp = character.getMoney() - weaponPrice;
 				character.setMoney(temp);
 				weaponPrice += 500; // price goes up
+				document.getElementById("moneySound").load();
 				document.getElementById("moneySound").play();
 			}
 		}
@@ -1461,6 +1477,7 @@ function Brain() {
 				character.setBrainNumber(temp);
 				temp = character.getMoney() - BRAIN_PRICE;
 				character.setMoney(temp);
+				document.getElementById("moneySound").load();
 				document.getElementById("moneySound").play();
 			}
 		}
