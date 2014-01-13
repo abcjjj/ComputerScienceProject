@@ -13,45 +13,48 @@
         <!--The Menu Screen-->
         <img class="menu" id="title" src="images/title.png">
         <img class="menu" id="jailimage" src="images/menujailart.png">
-        <button class="menu" id="start" href="#" >START</button> 
-        <button class="menu" id="howtoplay" href="#" >HOW TO PLAY</button>
-        <button class="menu" id="settings" href="#" >SETTINGS</button>
-        <button class="menu" id="loadGame" href="#">SAVED GAME</button>
+        <button class="menu" id="start" href="#" >DEBUT</button> 
+        <button class="menu" id="howtoplay" href="#" >INSTRUCTIONS</button>
+        <button class="menu" id="settings" href="#" >CONFIGURATION</button>
+        <button class="menu" id="loadGame" href="#">JEU SAUVÉ</button>
 
         <!--The Instructions Screen-->
-        <button class="instructions" id="instructionstoMenu" href="#" >Back</button>
+        <button class="instructions" id="instructionstoMenu" href="#" >Retourner</button>
         <img class="instructions" id="instructionsimg" src="images/instructions.png">
         
         
         <!--The Settings Screen-->           
 	    <button class="settings" id="settingstoMenu" href="#" >Back</button>
-	    <form action="" class="settings" id="BGM">
-	        Background Music
-	            <select name="">
-	            <option value="XX" class="settings" id="xx">XX</option><!--yet to be decided-->
-	            </select>
-	    </form>
+	    <p class="settings" id="sound">Sounds: </p>
+		<button class="settings" id="turnSound" href="#" >Turn Off</button>
+		<form action="" class="settings" id="individualSounds">
+			<input type="checkbox" name="sound" value="click" id="click" class="settings indSounds" checked>Click       
+			<input type="checkbox" name="sound" value="punch" id="punch" class="settings indSounds" checked> Punch
+			<input type="checkbox" name="sound" value="hit" id="hit" class="settings indSounds" checked> Hit
+			<input type="checkbox" name="sound" value="cash register" id="money" class="settings indSounds" checked> Cash Register
+			<input type="checkbox" name="sound" value="winning" id="win" class="settings indSounds" checked> Winning
+			<input type="checkbox" name="sound" value="losing" id="lose" class="settings indSounds" checked> Losing
+		</form>
         
         <!--The Customization Screen-->
         <img class="customization" id="genderScreen" src="images/genderselect.png">
         <img class="customization battle" id="boySprite" src="images/boy.png">
         <img class="customization battle" id="girlSprite" src="images/girl.png">
-		<button class="customization" id="doneCus" href="#" >Done!</button>
-        <form class="customization" id="genders">You are a...<br>
+		<button class="customization" id="doneCus" href="#" >Fini!</button>
+        <form class="customization" id="genders">Tu est une...<br>
             <input type="radio" name="gender" class="genderRadio" class="customization" id="maleRadio" value="female">Boy
             <input type="radio" name="gender" class="genderRadio" class="customization" id="femaleRadio" value="male">Girl       
         </form> 			
         
         <!--The Saved Games Screen-->
-        <button class="savedgames" id="savedgamestoMenu" href="#" >Back</button>
+        <button class="savedgames" id="savedgamestoMenu" href="#" >Retourner</button>
         <img class="savedgames" id="sgtitle" src="images/sgtitle.png">
-        
-        
+           
         <!--The Transistion Screens-->
         <!--Choosing to skip the story-->
         <img class="storySkip" id="storyprompt" src="images/storyprompt.png"> 
-        <button class="storySkip" id="yesView" href="#" >YES</button>
-        <button class="storySkip" id="noView" href="#" >NO</button>
+        <button class="storySkip" id="yesView" href="#" >OUI</button>
+        <button class="storySkip" id="noView" href="#" >NON</button>
         <!--The Story-->
         <img class="story" id="storytext" src="images/storytext.png">
         <button class="story" id="ok" href="#" >OK</button>
@@ -82,8 +85,8 @@
         <button class="hub" id="travelMultiplication">*</button>
         <button class="hub" id="travelDivision">/</button>
         <button class="hub" id="travelCombined">+ - * /</button>
-        <button class="hub" id="hubToShop">shop</button>
-        <button class="hub" id="hubToStage">back</button>
+        <button class="hub" id="hubToShop">magasin</button>
+        <button class="hub" id="hubToStage">retourner</button>
         
         <!--The Battle Screen-->
         <img class="ASDF" id="monster" src="images/dogeanimation.gif">
@@ -95,16 +98,17 @@
         <img class="ASDF" id="monsterF" src="images/monsterBoss.png">
         <img class="battle" id="battlescreen" src="images/battlescreen.png"> 
         <p class="battle" id="question">?Question?</p>
-        <p class="battle" id="timer">Time Remaining: ns</p>
+        <p class="battle" id="timer">Temps Restant: ns</p>
         <form class="battle" id="answerInput">
         Your Answer: <br>
             <input class="battle" id="userAnswer" type="number"name="answer">
         </form>
-        <canvas class="battle" id="monsterLives">Monster HP</canvas>
-        <canvas class="battle" id="characterLives">Character HP</canvas>
-        <button class="battle" id="item1" href="#">Clock * 0</button> <!--Some items from the shop-->
-        <button class="battle" id="item2" href="#">Brain * 0</button>
-        <button class="battle" id="submitAnswer" href="#">Attack</button>        
+        <canvas class="battle" id="monsterLives">Monstre HP</canvas>
+        <canvas class="battle" id="characterLives">Ton HP</canvas>
+        <button class="battle" id="item1" href="#">Horloge * 0</button> <!--Some items from the shop-->
+        <button class="battle" id="item2" href="#">Cerveau * 0</button>
+        <button class="battle" id="submitAnswer" href="#">Attack</button>  
+        <p class="battle" id="hint">?Hint?</p>      
   
         <!--The Shop-->
         <img class="shop" id="shopscreen" src="images/store.png">
@@ -115,18 +119,23 @@
         <img class="shop" id="fistImage" src="images/powfist.png">
         <img class="shop" id="heartImage" src="images/heart.png">
         
-        <button class="shop" id="saveButton" href="#">SAVE</button>
-        <button class="shop" id="key" src="#" href="#">Key: $10000</button>
-        <button class="shop" id="toHub" href="#">Back</button>
-        <button class="shop" id="buyFist" href="#">Upgrade: 500$</button>
-        <button class="shop" id="buyShield" href="#">Upgrade: 500$</button>
-        <button class="shop" id="buyBrain" href="#">Brain: 50$</button>
-        <button class="shop" id="buyClock" href="#">Clock: 25$</button>
-        <button class="shop" id="buyHeart" href="#">Heart: 75$</button>
+        <button class="shop" id="saveButton" href="#">SAUVER</button>
+        <button class="shop" id="key" src="#" href="#">Clef: $10000</button>
+        <button class="shop" id="toHub" href="#">Reviens</button>
+        <button class="shop" id="buyFist" href="#">Nouvelle: 500$</button>
+        <button class="shop" id="buyShield" href="#">Nouvelle: 500$</button>
+        <button class="shop" id="buyBrain" href="#">Cerveau: 50$</button>
+        <button class="shop" id="buyClock" href="#">Horloge: 25$</button>
+        <button class="shop" id="buyHeart" href="#">Coeur: 75$</button>
         
         <p class="shop" id="showMoney">Money: $0</p>
         
-        <audio id="buttonSound" src="music/button.mp3" preload="auto">#</audio>
+        <audio class="sound" id="buttonSound" src="music/button.mp3" preload="auto">#</audio>
+        <audio class="sound" id="loseSound" src="music/lose.mp3" preload="auto">#</audio>
+        <audio class="sound" id="winSound" src="music/win.mp3" preload="auto">#</audio>
+        <audio class="sound" id="punchSound" src="music/punch.mp3" preload="auto">#</audio>
+        <audio class="sound" id="hitSound" src="music/hit.mp3" preload="auto">#</audio>
+        <audio class="sound" id="moneySound" src="music/money.mp3" preload="auto">#</audio>
 
     </body> 
 </html>
