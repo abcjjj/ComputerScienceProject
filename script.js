@@ -153,7 +153,7 @@ function StageControl() {
 			monster.setType("boss");// force the monster type into boss
 			monster.setTotalLP(monster.getTotalLP()*5);// 5 times the life points
 			monster.setMoneyGive(monster.getMoneyGive()*5);// 5 times the reward
-			alert("Behold, the boss of this stage!");
+			alert("Regarde, le boss de cette etage!");
 			typeControl.setOperation("boss");// which is the default mix
 		}
 	};// end setBoss
@@ -189,15 +189,15 @@ function StageControl() {
 	this.clearStage = function() {
 		if(monster.getType()==="boss") { 
 		// checks if the monster defeated was a boss	
-			alert("Wow, you've defeated the boss!");
+			alert("Ouah, tu as vaincu le boss monstre");
 			$(".hub").css("visibility", "hidden");// directs back
 			$(".stageSelection").css("visibility", "visible");
-			alert("You can now proceed to the next stage!");
+			alert("La prochaine etage est disponible!!");
 			unlockNextStage();
 		}
 	};// end clearStage
 	/**
-	 * allows the user to access the next stages after beating the boss;
+	 * allows the user to access the next stages after beating the boss; 
 	 * this function is called in the clearStage function 
 	 */
 	function unlockNextStage() {
@@ -215,7 +215,7 @@ function StageControl() {
 			unlockCrazy();
 		}
 		else 
-			alert("Actually, you've unlocked all 4 stages!\nNow your goal should be set for the key.");
+			alert("Tu as vaincu les 4 etages!\nMaintenant ton objectif est d'acheter le clef.");
 	}// end unlockNextStage
 	
 	/**
@@ -261,8 +261,9 @@ $(function(){
     });
 
     $("#settings").click(function() {
-            $(".settings").css("visibility", "visible");
-            $(".menu").css("visibility", "hidden");
+    	readSettings();
+        $(".settings").css("visibility", "visible");
+        $(".menu").css("visibility", "hidden"); 
     });
 
     $("#loadGame").click(function() {
@@ -273,15 +274,35 @@ $(function(){
     });
 
     $("#instructionstoMenu").click(function() {
-            $(".instructions").css("visibility", "hidden");
-            $(".menu").css("visibility", "visible");
+        $(".instructions").css("visibility", "hidden");
+        $(".menu").css("visibility", "visible");
     });
 
     $("#settingstoMenu").click(function() {
-            $(".settings").css("visibility", "hidden");
-            $(".menu").css("visibility", "visible");
+        $(".settings").css("visibility", "hidden");
+        $(".menu").css("visibility", "visible");
+        saveSettings();
     });
-
+    $("#turnSound").click(function() {
+    	if(localStorage.isSound==="true") {
+    		// sounds are currently on
+    		$("#turnSound").text("Turn Off");
+    		localStorage.isSound=false;
+    		addSoundSrc();
+    		$(".indSounds").prop("checked", true);
+    	}
+    	else if(localStorage.isSound==="false"){
+    		// sounds are currently off
+    		$("#turnSound").text("Turn On");
+    		localStorage.isSound=true;
+    		$(".sound").attr("src", "");
+    		$(".indSounds").prop("checked", false);
+    	}
+    	else {
+    		localStorage.isSound="true";
+    	}// end if-else
+    });
+    
     $("#savedgamestoMenu").click(function() {
             $(".savedgames").css("visibility", "hidden");
             $(".menu").css("visibility", "visible");
@@ -290,6 +311,8 @@ $(function(){
     $("#backToMenu").click(function() {
             $(".won").css("visibility", "hidden");
             $(".menu").css("visibility", "visible");
+            $("#lock2, #lock3, #lock4").addClass("stageSelection");
+            $("#girlSprite").css("left", 700);            
     });
     
     /*
@@ -334,7 +357,7 @@ $(function(){
             weapon.setWeaponPrice(500);
     	}
     	else 
-    		alert("What is your gender???");
+    		alert("Est-tu un garcon ou une fille???");
     });           
   
     /*
@@ -342,7 +365,7 @@ $(function(){
      */  
     $("#backToBattle").click(function() {
             $(".won").css("visibility", "hidden");
-            $(".battle").css("visibility", "visible");
+            $(".stageSelection").css("visibility", "visible");
     });       
     
     $("#stage1").click(function() {
@@ -436,61 +459,63 @@ $(function(){
     });
     
     $("#key").click(function() {
-            if(character.money>=10000) {
-            	if(confirm("Escape from the cave!")) {
-               		character.setMoney(character.getMoney()-=10000);
+            if(character.getMoney()>=10000) {
+            	if(confirm("Echappe de la caverne!")) {
+               		character.setMoney(character.getMoney()-10000);
                     $(".shop").css("visibility", "hidden");
                     $(".won").css("visibility", "visible");
+                    document.getElementById("winSound").play();
             	}
             }
             else
-            	alert("You don't have enough money!");
+            	alert("Tu n'as pas assez d'argent!");
     });  
 		
     $("#buyHeart").click(function() {
 		heart.heartBuy();
-		$("#showMoney").text("Money: $" + character.getMoney());
+		$("#showMoney").text("Argent: $" + character.getMoney());
     });
     $("#buyFist").click(function() {
 		weapon.weaponBuy();
-		$("#showMoney").text("Money: $" + character.getMoney());
-		$("#buyFist").text("Upgrade: " + weapon.getWeaponPrice() + "$");// the price changes
+		$("#showMoney").text("Argent: $" + character.getMoney());
+		$("#buyFist").text("Surclasse: " + weapon.getWeaponPrice() + "$");// the price changes
     });           
     $("#buyClock").click(function() {        	
 		clock.clockBuy();
-		$("#showMoney").text("Money: $" + character.getMoney());
+		$("#showMoney").text("Argent: $" + character.getMoney());
     }); 
     $("#buyShield").click(function() {
 		shield.shieldBuy();
-		$("#showMoney").text("Money: $" + character.getMoney());
-		$("#buyShield").text("Upgrade: " + shield.getShieldPrice() + "$");// the price changes
+		$("#showMoney").text("Argent: $" + character.getMoney());
+		$("#buyShield").text("Surclasse: " + shield.getShieldPrice() + "$");// the price changes
     }); 
     $("#buyBrain").click(function() {
 		brain.brainBuy();
-		$("#showMoney").text("Money: $" + character.getMoney());
+		$("#showMoney").text("Argent: $" + character.getMoney());
     });         
     
     $("#saveButton").click(function() {
-		if(confirm("Do you wish the save your current progress?"))
+		if(confirm("Est-ce que vous voulez sauver votre progres?"))
 			saveGame();
     });    
     
     $("#submitAnswer").click(function() {
     	clearInterval(timeInterval);
         if(checkAnswer()) { 
-			alert("Correct: You hit the monster!");
+        	document.getElementById("punchSound").play();
+			alert("Correcte: Tu attaque le monstre!");
 			monster.loseLifeMonster();
 			if(weapon.isCritical()) {
-				alert("And that was a critical hit!");
+				alert("Et c'etait une attaque critique!");
 				monster.loseLifeMonster();
 			}
 			if(monster.getLifePointsMonster()<=0) { // checks if the monster is dead
-				alert("You defeated the monster!\n You earned $" + monster.getMoneyGive());
+				alert("Tu as vaincu le monstre!\n Vous recevez $" + monster.getMoneyGive());
 				character.setMoney(character.getMoney()+monster.getMoneyGive());
 				$(".battle").css("visibility", "hidden");
 				$(".ASDF").css("visibility", "hidden");
                 $(".hub").css("visibility", "visible");
-                stageControl.setBossAppear(stageControl.getBossAppear()+1);
+                stageControl.setBossAppear(stageControl.getBossAppear()+1);// add one
                 stageControl.clearStage();
                 monster.resetMonsterType();  
                 removeContent();                  
@@ -499,11 +524,12 @@ $(function(){
 				startBattle();
         }
         else {
-        	alert("Wrong answer: The monster hits you!");
+        	document.getElementById("hitSound").play();
+        	alert("Mal reponse: Le monstre t'attaque!");
         	if(shield.isEvaded() == false){	     
         		character.loseLife();       	
         		if(character.getLifePoints()<=0) { // check if the character is dead
-            		alert("Oh no! You are defeated by the monster!");
+            		alert("Oh non! Tu est vaincu par le monstre!");
             		character.death();
             		removeContent(); 
             	}
@@ -511,7 +537,7 @@ $(function(){
             		startBattle();
             }
             else {
-            	alert("But you evaded the hit!");
+            	alert("Mais tu esquive le attaque!");
             }// end if-else
         }// end if-else
     });
@@ -534,6 +560,87 @@ $(function(){
 });// end document ready
 
 /**
+ * this function adds to original sources to the audio elements 
+ */
+function addSoundSrc() {
+	$("#buttonSound").attr("src", "music/button.mp3");
+	$("#loseSound").attr("src", "music/lose.mp3");
+	$("#winSound").attr("src", "music/win.mp3");
+	$("#punchSound").attr("src", "music/punch.mp3");
+	$("#hitSound").attr("src", "music/hit.mp3");
+	$("#moneySound").attr("src", "music/money.mp3");
+}// end addSoundSrc
+/**
+ * this function reads the previous settings
+ */
+function readSettings() {
+	if(localStorage.isClick==="true") {
+		$("#click").prop("checked", true);
+		$("#buttonSound").attr("src", "music/button.mp3");
+	}
+	else {
+		$("#click").prop("checked", false);
+		$("#buttonSound").attr("src", "");
+	}// end if-else
+	if(localStorage.isWin==="true") {
+		$("#winning").prop("checked", true);
+		$("#winSound").attr("src", "music/win.mp3");
+	}
+	else {
+		$("#winning").prop("checked", false);
+		$("#winSound").attr("src", "");
+	}// end if-else
+	if(localStorage.isLose==="true") {
+		$("#losing").prop("checked", true);
+		$("#loseSound").attr("src", "music/lose.mp3");
+	}
+	else {
+		$("#losing").prop("checked", false);
+		$("#loseSound").attr("src", "");
+	}// end if-else
+	if(localStorage.isPunch==="true") {
+		$("#punch").prop("checked", true);
+		$("#punchSound").attr("src", "music/punch.mp3");
+	}
+	else {
+		$("#punch").prop("checked", false);
+		$("#punchSound").attr("src", "");
+	}// end if-else
+	if(localStorage.isHit==="true") {
+		$("#hit").prop("checked", true);
+		$("#hitSound").attr("src", "music/hit.mp3");
+	}
+	else {
+		$("#hit").prop("checked", false);
+		$("#hitSound").attr("src", "");
+	}// end if-else
+	if(localStorage.isCash==="true") {
+		$("#money").prop("checked", true);
+		$("#moneySound").attr("src", "music/button.mp3");
+	}
+	else {
+		$("#money").prop("checked", false);
+		$("#moneySound").attr("src", "");
+	}// end if-else				 
+	if(localStorage.isSound==="true")
+		$("#turnSound").text("Turn On");
+	else if(localStorage.isSound==="false")
+		$("#turnSound").text("Turn Off");	       	
+}// end readSettings
+readSettings();//read when the game is started
+/**
+ * this function saves settings
+ */
+function saveSettings() {
+    localStorage.isClick = $("#click").prop("checked");
+    localStorage.isPunch = $("#punch").prop("checked");
+    localStorage.isHit = $("#hit").prop("checked");
+    localStorage.isCash = $("#money").prop("checked");
+    localStorage.isWin = $("#win").prop("checked");
+    localStorage.isLose = $("#lose").prop("checked");
+    readSettings();
+}// end saveSettings
+/**
  * this function stores the current process of the game locally
  */
 function saveGame() {
@@ -550,7 +657,6 @@ function saveGame() {
 	localStorage.clockNumber = character.getClockNumber();
 	localStorage.weaponPrice = weapon.getWeaponPrice();
 	localStorage.shieldPrice = shield.getShieldPrice();
-	alert(localStorage.isCrazyUnlocked);
 }// end saveGame
 /**
  * this function loads the saved process of the game
@@ -610,9 +716,11 @@ function startBattle() {
 	character.setImage();	
 	monster.setImageMonster();
     questionGenerator.createQuestion(typeControl.getOperation(), typeControl.getIsEasy()||typeControl.getIsMedium());
+    $("#userAnswer").val(" ");
+    $("#hint").css("visibility", "hidden");
     // starting timer
     $("#question").text(questionGenerator.getQuestion());                  
-	$("#timer").text("Time remaining: " + timer.getTotalTime()); // reset timing
+	$("#timer").text("Temps restant" + timer.getTotalTime()); // reset timing
 	timer.setCurrentTime(timer.getTotalTime());
 	timer.countDown();
 }// end startBattle
@@ -642,15 +750,19 @@ function Timer() {
 	    timeInterval=setInterval(function(){
 	    	if(this.currentTime!==0) {
 		    	currentTime--;
-		    	$("#timer").text("Time remaining: " + currentTime);
+		    	$("#timer").text("Temps restant" + currentTime);
 	    	}
 	    	else {// currentTime == 0
 	    		clearInterval(timeInterval);
-	    		alert("Time Up! The monster hits you!");
-	    		character.loseLife();
+	    		document.getElementById("hitSound").play();
+	    		alert("Le temps est ecoule! The monster t'attaque!");
+	    		if(shield.isEvaded() == false)
+	    			character.loseLife();
+	    		else
+	    			alert("Mais tu esquive le attaque!");
 	    		startBattle();
     		    if(character.getLifePoints()<=0) {
-            		alert("Oh no! You are defeated by the monster!");
+            		alert("Oh non! Tu est vaincu par le monstre!");
             		character.death();
             		removeContent(); 
             	}
@@ -873,9 +985,12 @@ function Character() {
 	    $(".ASDF").css("visibility", "hidden");
 	    $(".battle").css("visibility", "hidden");
 	    $(".gameOver").css("visibility", "visible");
+	    document.getElementById("loseSound").play();
 	    $("#loseToMenu").click(function(){
-	                $(".gameOver").css("visibility", "hidden");
-	                $(".menu").css("visibility", "visible");
+            $(".gameOver").css("visibility", "hidden");
+            $(".menu").css("visibility", "visible");
+            $("#lock2, #lock3, #lock4").addClass("stageSelection");
+            $("#girlSprite").css("left", 700);
 	    });
 	};// end death
 }// end Constructor
@@ -1129,7 +1244,7 @@ function QuestionGenerator() {
 			        numbersUsed[0]=makeTens()+makeOnes();
 			    } while(numbersUsed[0]===0);// checks for zero divisors
 			    numbersUsed[1]=makeHundreds()+makeTens()+makeOnes();// unlike the easy ones, this one is completely random
-			    question = numbersUsed[1] + " / " + numbersUsed[0] + " = ? , remainder = ?"; // asks for the remainder	
+			    question = numbersUsed[1] + " / " + numbersUsed[0] + " = ? , reste = ?"; // asks for the remainder	
 				break;
 			default:
 			    question = "1 / 1 = ?";
@@ -1173,15 +1288,16 @@ function Clock() {
 	 */
 	this.clockBuy = function() {
 		if(character.getMoney()>=CLOCK_PRICE) {
-			if(confirm("Are you sure?")) {
+			if(confirm("Est tu sure?")) {
 				var temp = character.getClockNumber() + 1 ;
 				character.setClockNumber(temp);
 				temp = character.getMoney() - CLOCK_PRICE;
 				character.setMoney(temp);
+				document.getElementById("moneySound").play();
 			}
 		}
 		else
-			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+			alert("Tu n'as pas assez d'argent!");// <- could let the shop guy say it instead?
 	};// end buyHeart
 	/**
 	 * displays the remaining amount of clock items in the battle screen 
@@ -1211,15 +1327,16 @@ function Heart() {
 	 */	
 	this.heartBuy = function() {
 		if(character.getMoney()>=HEART_PRICE) {
-			if(confirm("Are you sure?")) {
+			if(confirm("Est tu sure?")) {
 				var temp = character.getLifePoints() + 1 ; // add 1 life point
 				character.setLifePoints(temp);
 				temp = character.getMoney() - HEART_PRICE;
 				character.setMoney(temp);
+				document.getElementById("moneySound").play();
 			}
 		}
 		else
-			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+			alert("Tu n'as pas assez d'argent!");// <- could let the shop guy say it instead?
 	};// end heartBuy
 }// end constructor
 // initialize shop item
@@ -1247,16 +1364,17 @@ function Shield() {
 	 */
 	this.shieldBuy = function() {
 		if(character.getMoney()>=shieldPrice) {
-			if(confirm("Are you sure?")) {
+			if(confirm("Est tu sure?")) {
 				var temp = character.getShieldUpgrade() + 1;
 				character.setShieldUpgrade(temp);				
 				temp = character.getMoney() - shieldPrice;				
 				character.setMoney(temp);
 				shieldPrice += 500;// the price goes up
+				document.getElementById("moneySound").play();
 			}
 		}
 		else
-			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+			alert("Tu n'as pas assez d'argent!");// <- could let the shop guy say it instead?
 	};// end shieldBuy
 	/**
 	 * Determines whether the user evades the monster's attack upon giving a wrong answer 
@@ -1298,16 +1416,17 @@ function Weapon() {
 	 */
 	this.weaponBuy = function() {
 		if(character.getMoney()>=weaponPrice) {
-			if(confirm("Are you sure?")) {
+			if(confirm("Est tu sure?")) {
 				var temp = character.getWeaponUpgrade() + 1;
 				character.setWeaponUpgrade(temp);
 				temp = character.getMoney() - weaponPrice;
 				character.setMoney(temp);
 				weaponPrice += 500; // price goes up
+				document.getElementById("moneySound").play();
 			}
 		}
 		else
-			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+			alert("Tu n'as pas assez d'argent!");// <- could let the shop guy say it instead?
 	};// end weaponBuy
 	/**
 	 * Determines whether the user hits the monster with a cirtical hit
@@ -1337,15 +1456,16 @@ function Brain() {
 	 */
 	this.brainBuy = function() {
 		if(character.getMoney()>=BRAIN_PRICE) {
-			if(confirm("Are you sure?")) {
+			if(confirm("Est tu sure?")) {
 				var temp = character.getBrainNumber() + 1;
 				character.setBrainNumber(temp);
 				temp = character.getMoney() - BRAIN_PRICE;
 				character.setMoney(temp);
+				document.getElementById("moneySound").play();
 			}
 		}
 		else
-			alert("You don't have enough money!");// <- could let the shop guy say it instead?
+			alert("Tu n'as pas assez d'argent!");// <- could let the shop guy say it instead?
 	};// end brainBuy
 	/**
 	 * triggered when the user uses a brain in the battle  
@@ -1356,6 +1476,7 @@ function Brain() {
 			var temp = character.getBrainNumber() - 1;
 			character.setBrainNumber(temp);
 			hint();
+			$("#hint").css("visibility", "visible");
 		}
 	};// end brainUse
 	/**
@@ -1370,16 +1491,16 @@ function Brain() {
 		// the following switch case shuffles the order of the choices so that the correct one does not always appear at the same place
 		switch(Math.floor(Math.random()*3)) {
 			case 0:
-				alert("Hint: The answer is either " + temp + " or " + wrongChoice1 + " or " + wrongChoice2);
+				$("#hint").text("Indice: La reponse est " + temp + " ou " + wrongChoice1 + " ou " + wrongChoice2);
 				break;
 			case 1:
-				alert("Hint: The answer is either " + wrongChoice1 + " or " + temp + " or " + wrongChoice2);
+				$("#hint").text("Indice: La reponse est " + wrongChoice1 + " ou " + temp + " ou " + wrongChoice2);
 				break;
 			case 2:
-				alert("Hint: The answer is either " + wrongChoice2 + " or " + wrongChoice1 + " or " + temp);
+				$("#hint").text("Indice: La reponse est " + wrongChoice2 + " ou " + wrongChoice1 + " ou " + temp);
 				break;
 			default:
-				alert("Cheat: The answer is " + temp);
+				$("#hint").text("Tricheur: La reponse est " + temp);
 		}// end switch case
 	}// end hint
 	/**
