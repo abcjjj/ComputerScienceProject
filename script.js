@@ -537,7 +537,9 @@ $(function(){
                     	stageControl.setBossAppear(stageControl.getBossAppear()+1);// add one
                     stageControl.clearStage();
                     monster.resetMonsterType();  
-                    removeContent();                  
+                    removeContent();
+			        $("#remainderInput").css("visibility", "hidden"); 
+			        $("#remainder").css("visibility", "hidden");                  
                 }
                 else
                     startBattle();
@@ -1018,6 +1020,8 @@ function Character() {
         
     this.death = function() {
         // when character is dead
+        $("#remainderInput").css("visibility", "hidden"); 
+        $("#remainder").css("visibility", "hidden");
         $(".ASDF").css("visibility", "hidden");
         $(".battle").css("visibility", "hidden");
         $(".gameOver").css("visibility", "visible");
