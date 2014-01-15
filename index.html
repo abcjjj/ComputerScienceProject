@@ -3,7 +3,7 @@
     <head> 
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8"> 
-        <title>Les Monstres du Mathematiques</title> 
+        <title>Math Monsters</title> 
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
         <script type="text/javascript" src="jquery-2.0.3.js"></script>
         <script type="text/javascript" src="script.js"></script>
@@ -16,7 +16,7 @@
         <button class="menu" id="start" href="#" >DEBUT</button> 
         <button class="menu" id="howtoplay" href="#" >INSTRUCTIONS</button>
         <button class="menu" id="settings" href="#" >CONFIGURATION</button>
-        <button class="menu" id="loadGame" href="#">JEU SAUVE</button>
+        <button class="menu" id="loadGame" href="#">JEU SAUVÉ</button>
 
         <!--The Instructions Screen-->
         <button class="instructions" id="instructionstoMenu" href="#" >Retourner</button>
@@ -28,12 +28,12 @@
 	    <p class="settings" id="sound">Sounds: </p>
 		<button class="settings" id="turnSound" href="#" >Turn Off</button>
 		<form action="" class="settings" id="individualSounds">
-			<input type="checkbox" name="sound" value="click" id="click" class="settings indSounds" checked>Clique      
-			<input type="checkbox" name="sound" value="punch" id="punch" class="settings indSounds" checked> Attaque
-			<input type="checkbox" name="sound" value="hit" id="hit" class="settings indSounds" checked> Paf
-			<input type="checkbox" name="sound" value="cash register" id="money" class="settings indSounds" checked> Achete
-			<input type="checkbox" name="sound" value="winning" id="win" class="settings indSounds" checked> Gagne
-			<input type="checkbox" name="sound" value="losing" id="lose" class="settings indSounds" checked> Perdu
+			<input type="checkbox" name="sound" value="click" id="click" class="settings indSounds" checked>Click       
+			<input type="checkbox" name="sound" value="punch" id="punch" class="settings indSounds" checked> Punch
+			<input type="checkbox" name="sound" value="hit" id="hit" class="settings indSounds" checked> Hit
+			<input type="checkbox" name="sound" value="cash register" id="money" class="settings indSounds" checked> Cash Register
+			<input type="checkbox" name="sound" value="winning" id="win" class="settings indSounds" checked> Winning
+			<input type="checkbox" name="sound" value="losing" id="lose" class="settings indSounds" checked> Losing
 		</form>
         
         <!--The Customization Screen-->
@@ -42,8 +42,8 @@
         <img class="customization battle" id="girlSprite" src="images/girl.png">
 		<button class="customization" id="doneCus" href="#" >Fini!</button>
         <form class="customization" id="genders">Tu est une...<br>
-            <input type="radio" name="gender" class="genderRadio" class="customization" id="maleRadio" value="female">Garcon
-            <input type="radio" name="gender" class="genderRadio" class="customization" id="femaleRadio" value="male">Fille     
+            <input type="radio" name="gender" class="genderRadio" class="customization" id="maleRadio" value="female">Boy
+            <input type="radio" name="gender" class="genderRadio" class="customization" id="femaleRadio" value="male">Girl       
         </form> 			
         
         <!--The Saved Games Screen-->
@@ -107,7 +107,7 @@
         <canvas class="battle" id="characterLives">Ton HP</canvas>
         <button class="battle" id="item1" href="#">Horloge * 0</button> <!--Some items from the shop-->
         <button class="battle" id="item2" href="#">Cerveau * 0</button>
-        <button class="battle" id="submitAnswer" href="#">Attaque</button>  
+        <button class="battle" id="submitAnswer" href="#">Attack</button>  
         <p class="battle" id="hint">?Hint?</p>      
   
         <!--The Shop-->
@@ -136,6 +136,12 @@
         <audio class="sound" id="punchSound" src="music/punch.mp3" preload="auto">#</audio>
         <audio class="sound" id="hitSound" src="music/hit.mp3" preload="auto">#</audio>
         <audio class="sound" id="moneySound" src="music/money.mp3" preload="auto">#</audio>
-
+        
+        
+        <audio class="sound" id="noSound" src="music/silent.mp3" preload="auto">#</audio>
+		<form id="remainderInput">
+        Remainder: <br>
+            <input id="remainder" type="number"name="answer">
+        </form>
     </body> 
 </html>
