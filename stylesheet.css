@@ -482,6 +482,16 @@ button:active {
 #userAnswer {
         visibility:hidden;       
 }
+#remainderInput {
+        visibility:hidden;
+        position:absolute;
+        top:330px;
+        left:435px;
+        color:WHITE;
+}
+#remainder {
+        visibility:hidden;       
+}
 #submitAnswer {
         visibility:hidden; 
         position:absolute; 
