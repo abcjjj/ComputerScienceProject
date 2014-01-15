@@ -171,7 +171,22 @@ function StageControl() {
                         return typeControl.getIsHard();// hard comes before crazy
                 else // default
                         return true; // when the user has completed the stages, the boss can randomly appear
-        }
+        }// end isCurrentStage
+        /**
+         * determines whether if the user is in currently most difficult hub, which
+         * is necessary for the boss to appear
+         * @return if the user is challanging the hardest stage 
+         */
+        this.isCurrentStage = function() {
+                if(isMediumUnlocked==false)
+                        return true;// the user can only challange the easy stage
+                else if(isHardUnlocked==false)
+                        return typeControl.getIsMedium();// medium comes before hard
+                else if(isCrazyUnlocked==false)
+                        return typeControl.getIsHard();// hard comes before crazy
+                else // default
+                        return true; // when the user has completed the stages, the boss can randomly appear
+        };// end isCurrentStage     
         /**
         * determines whether if the boss is to appear 
         * @return if the boss is to appear or not
@@ -243,14 +258,14 @@ var stageControl = new StageControl();
 
 // action events
 $(function(){
-        // a sound effect for all buttons
-        $("button").click(function() {
+    // a sound effect for all buttons
+    $("button").click(function() {
                 document.getElementById("buttonSound").load();        
                 document.getElementById("buttonSound").play();                        
     });
-        /*
-         * The menu screens
-         */
+    /*
+     * The menu screens
+     */
     $("#start").click(function() {
             $(".menu").css("visibility", "hidden");
             $(".storySkip").css("visibility", "visible");
@@ -262,7 +277,7 @@ $(function(){
     });
 
     $("#settings").click(function() {
-            readSettings();
+        readSettings();
         $(".settings").css("visibility", "visible");
         $(".menu").css("visibility", "hidden"); 
     });
@@ -285,22 +300,19 @@ $(function(){
         saveSettings();
     });
     $("#turnSound").click(function() {
-            if(localStorage.isSound==="true") {
+            if(localStorage.isSound==="false") {
+                    // sounds are currently off
+                    $("#turnSound").text("Turn On");
+                    localStorage.isSound=true;
+                    $(".sound").attr("src", "music/silent.mp3");
+                    $(".indSounds").prop("checked", false);                    
+            }
+            else {
                     // sounds are currently on
                     $("#turnSound").text("Turn Off");
                     localStorage.isSound=false;
                     addSoundSrc();
                     $(".indSounds").prop("checked", true);
-            }
-            else if(localStorage.isSound==="false"){
-                    // sounds are currently off
-                    $("#turnSound").text("Turn On");
-                    localStorage.isSound=true;
-                    $(".sound").attr("src", "");
-                    $(".indSounds").prop("checked", false);
-            }
-            else {
-                    localStorage.isSound="true";
             }// end if-else
     });
     
@@ -344,7 +356,7 @@ $(function(){
             if($("#maleRadio").is(':checked'))
                     character.setGender("male");       
             character.setLifePoints(5);// every relevant variable is reinitialized manually
-            character.clearCharacterLPCanvas();
+            //character.clearCharacterLPCanvas();
             character.setMoney(500);
             character.setClockNumber(0);
             character.setBrainNumber(0);
@@ -427,7 +439,7 @@ $(function(){
             typeControl.setOperation("divide");               
     });           
     $("#travelCombined").click(function() {
-                    monster.setType("robot");
+            monster.setType("robot");
             typeControl.setOperation("mix");               
     });        
     $("#travelAddition, #travelSubtraction, #travelMultiplication, #travelDivision, #travelCombined").click(function() {    
@@ -437,9 +449,9 @@ $(function(){
                     timer.setTotalTime(15);
             stageControl.setBoss();
             $(".hub").css("visibility", "hidden");
-            $(".battle").css("visibility", "visible");                 
+            $(".battle").css("visibility", "visible");             
             startBattle();                
-                    monster.setLifePointsMonster(monster.getTotalLP());                 
+            monster.setLifePointsMonster(monster.getTotalLP());                        
     });  
           
     $("#hubToStage").click(function() {
@@ -462,11 +474,13 @@ $(function(){
     $("#key").click(function() {
             if(character.getMoney()>=10000) {
                     if(confirm("Echappe de la caverne!")) {
-                               character.setMoney(character.getMoney()-10000);
-                    $(".shop").css("visibility", "hidden");
-                    $(".won").css("visibility", "visible");
-                    document.getElementById("winSound").load();
-                    document.getElementById("winSound").play();
+	                    character.clearCharacterLPCanvas();
+        				monster.clearMonsterLPCanvas();
+	                    character.setMoney(character.getMoney()-10000);
+	                    $(".shop").css("visibility", "hidden");
+	                    $(".won").css("visibility", "visible");
+	                    document.getElementById("winSound").load();
+	                    document.getElementById("winSound").play();
                     }
             }
             else
@@ -502,52 +516,49 @@ $(function(){
     });    
     
     $("#submitAnswer").click(function() {
-            clearInterval(timeInterval);
+        clearInterval(timeInterval);
+        document.getElementById("hitSound").load();
+        document.getElementById("punchSound").load();
         if(checkAnswer()) { 
-                document.getElementById("punchSound").load();
                 document.getElementById("punchSound").play();
-                setTimeout(function() {                        //<- want to play the sound first
-                        alert("Correcte: Tu attaque le monstre!");
-                                monster.loseLifeMonster();
-                                if(weapon.isCritical()) {
-                                        alert("Et c'etait une attaque critique!");
-                                        monster.loseLifeMonster();
-                                }
-                                if(monster.getLifePointsMonster()<=0) { // checks if the monster is dead
-                                        alert("Tu as vaincu le monstre!\n Vous recevez $" + monster.getMoneyGive());
-                                        character.setMoney(character.getMoney()+monster.getMoneyGive());
-                                        $(".battle").css("visibility", "hidden");
-                                        $(".ASDF").css("visibility", "hidden");
-                        $(".hub").css("visibility", "visible");
-                        stageControl.setBossAppear(stageControl.getBossAppear()+1);// add one
-                        stageControl.clearStage();
-                        monster.resetMonsterType();  
-                        removeContent();                  
-                                }
-                                else
-                                        startBattle();
-                        }, 500);
+                alert("Correcte: Tu attaque le monstre!");
+                monster.loseLifeMonster();
+                if(weapon.isCritical()) {
+                    alert("Et c'etait une attaque critique!");
+                    monster.loseLifeMonster();
+                }
+                if(monster.getLifePointsMonster()<=0) { // checks if the monster is dead
+                    alert("Tu as vaincu le monstre!\n Vous recevez $" + monster.getMoneyGive());
+                    character.setMoney(parseInt(character.getMoney())+parseInt(monster.getMoneyGive()));
+                    $(".battle").css("visibility", "hidden");
+                    $(".ASDF").css("visibility", "hidden");
+                    $(".hub").css("visibility", "visible");
+                    if(stageControl.isCurrentStage())
+                    	stageControl.setBossAppear(stageControl.getBossAppear()+1);// add one
+                    stageControl.clearStage();
+                    monster.resetMonsterType();  
+                    removeContent();                  
+                }
+                else
+                    startBattle();
         }
         else {
-                document.getElementById("hitSound").load();
-                document.getElementById("hitSound").play();
-                setTimeout(function() {
-                        alert("Mal reponse: Le monstre t'attaque!");
-                        if(shield.isEvaded() == false){             
-                                character.loseLife();               
-                                if(character.getLifePoints()<=0) { // check if the character is dead
-                                    alert("Oh non! Tu est vaincu par le monstre!");
-                                    character.death();
-                                    removeContent(); 
-                            }
-                            else
-                                    startBattle();
+        	document.getElementById("hitSound").play();
+            alert("Mal reponse: Le monstre t'attaque!");
+            if(shield.isEvaded() == false){             
+                        character.loseLife();               
+                        if(character.getLifePoints()<=0) { // check if the character is dead
+                            alert("Oh non! Tu est vaincu par le monstre!");
+                            character.death();
+                            removeContent(); 
                     }
-                    else {
-                            alert("Mais tu esquive le attaque!");
-                            startBattle();
-                    }// end if-else
-                }, 500);
+                    else
+                        startBattle();
+            }
+            else {
+                    alert("Mais tu esquive le attaque!");
+                    startBattle();
+            }// end if-else
         }// end if-else
     });
     $("#item1").click(function() {
@@ -583,58 +594,58 @@ function addSoundSrc() {
  * this function reads the previous settings
  */
 function readSettings() {
-        if(localStorage.isClick==="true") {
+        if(localStorage.isClick==="false") {
+                $("#click").prop("checked", false);
+                $("#buttonSound").attr("src", "music/silent.mp3");
+        }
+        else {
                 $("#click").prop("checked", true);
                 $("#buttonSound").attr("src", "music/button.mp3");
+        }// end if-else
+        if(localStorage.isWin==="false") {
+                $("#win").prop("checked", false);
+                $("#winSound").attr("src", "music/silent.mp3");
         }
         else {
-                $("#click").prop("checked", false);
-                $("#buttonSound").attr("src", "");
-        }// end if-else
-        if(localStorage.isWin==="true") {
-                $("#winning").prop("checked", true);
+                $("#win").prop("checked", true);
                 $("#winSound").attr("src", "music/win.mp3");
+        }// end if-else
+        if(localStorage.isLose==="false") {
+                $("#lose").prop("checked", false);
+                $("#loseSound").attr("src", "music/silent.mp3");
         }
         else {
-                $("#winning").prop("checked", false);
-                $("#winSound").attr("src", "");
-        }// end if-else
-        if(localStorage.isLose==="true") {
-                $("#losing").prop("checked", true);
+                $("#lose").prop("checked", true);
                 $("#loseSound").attr("src", "music/lose.mp3");
+        }// end if-else
+        if(localStorage.isPunch==="false") {
+                $("#punch").prop("checked", false);
+                $("#punchSound").attr("src", "music/silent.mp3");
         }
         else {
-                $("#losing").prop("checked", false);
-                $("#loseSound").attr("src", "");
-        }// end if-else
-        if(localStorage.isPunch==="true") {
                 $("#punch").prop("checked", true);
                 $("#punchSound").attr("src", "music/punch.mp3");
+        }// end if-else
+        if(localStorage.isHit==="false") {
+                $("#hit").prop("checked", false);
+                $("#hitSound").attr("src", "music/silent.mp3");
         }
         else {
-                $("#punch").prop("checked", false);
-                $("#punchSound").attr("src", "");
-        }// end if-else
-        if(localStorage.isHit==="true") {
                 $("#hit").prop("checked", true);
                 $("#hitSound").attr("src", "music/hit.mp3");
-        }
-        else {
-                $("#hit").prop("checked", false);
-                $("#hitSound").attr("src", "");
         }// end if-else
-        if(localStorage.isCash==="true") {
-                $("#money").prop("checked", true);
-                $("#moneySound").attr("src", "music/button.mp3");
+        if(localStorage.isCash==="false") {
+                $("#money").prop("checked", false);
+                $("#moneySound").attr("src", "music/silent.mp3");
         }
         else {
-                $("#money").prop("checked", false);
-                $("#moneySound").attr("src", "");
+                $("#money").prop("checked", true);
+                $("#moneySound").attr("src", "music/money.mp3");
         }// end if-else                                 
         if(localStorage.isSound==="true")
-                $("#turnSound").text("Turn On");
-        else if(localStorage.isSound==="false")
-                $("#turnSound").text("Turn Off");                       
+            $("#turnSound").text("Turn On");
+        else 
+            $("#turnSound").text("Turn Off");        
 }// end readSettings
 readSettings();//read when the game is started
 /**
@@ -687,7 +698,7 @@ function readGame() {
         character.setMoney(localStorage.money);
         character.setGender(localStorage.gender);
         character.setLifePoints(localStorage.lifePoints);
-        character.clearCharacterLPCanvas();        
+        //character.clearCharacterLPCanvas();        
         character.setWeaponUpgrade(localStorage.weaponUpgrade);
         character.setShieldUpgrade(localStorage.shieldUpgrade);
         character.setBrainNumber(localStorage.brainNumber);
@@ -706,7 +717,7 @@ function readGame() {
  * removes the contents of the canvas when they are not supposed to show up
  */
 function removeContent() {
-        character.clearCharacterLPCanvas();
+        //character.clearCharacterLPCanvas();
         monster.clearMonsterLPCanvas();
 }// end removeContent
 /**
@@ -723,13 +734,22 @@ function startBattle() {
         clock.showClockNumber();
         brain.showBrainNumber();
         // setting HTML elements around the centre of the screen
+        $("#remainderInput").css("visibility", "hidden"); 
+        $("#remainder").css("visibility", "hidden");
         character.setImage();        
         monster.setImageMonster();
-    questionGenerator.createQuestion(typeControl.getOperation(), typeControl.getIsEasy()||typeControl.getIsMedium());
-    $("#userAnswer").val(" ");
-    $("#hint").css("visibility", "hidden");
-    // starting timer
-    $("#question").text(questionGenerator.getQuestion());                  
+	    questionGenerator.createQuestion(typeControl.getOperation(), typeControl.getIsEasy()||typeControl.getIsMedium());
+	    $("#userAnswer, #remainder").val(" ");
+	    $("#hint").css("visibility", "hidden");
+	    $("#question").text(questionGenerator.getQuestion());  
+        if(typeControl.getIsCrazy()||typeControl.getIsHard()) {
+        	var temp = $("#question").text();
+        	if(temp.indexOf('/') != -1) {
+        		$("#remainderInput").css("visibility", "visible");  
+        		$("#remainder").css("visibility", "visible");  
+        	}
+        }   	    
+	    // starting timer                
         $("#timer").text("Temps restant " + timer.getTotalTime()); // reset timing
         timer.setCurrentTime(timer.getTotalTime());
         timer.countDown();
@@ -740,10 +760,15 @@ function startBattle() {
  */
 function checkAnswer() {
         var temp = $("#userAnswer").val();
+        temp.replace(" ", "");
+        var temp2 = $("#remainder").val();
+        if(questionGenerator.getAnswer()==0) {
+        	if(temp !== "0")
+        		return false; // the user has to enter 0 for a zero answer
+        }
         if(typeControl.getIsHard()||typeControl.getIsCrazy()) {
                 if(typeControl.getOperation()==4)// check for remainders in the more difficult divisions
-                        return temp.substring(0, temp.indexOf(' ')) == questionGenerator.getAnswer() && 
-                        temp.substring(temp.indexOf(' ')) == questionGenerator.getRemainder() ;// the quotient and the remainder are separated by a space
+                        return temp == questionGenerator.getAnswer() && temp2 == questionGenerator.getRemainder();
         }
         return temp == questionGenerator.getAnswer();
 }// end checkAnswer
@@ -860,37 +885,37 @@ function Monster() {
             
     };// end setImage
     
-        function changeMonsterLives() {
-            var canvas = document.getElementById("monsterLives");
-            var context = canvas.getContext('2d');
-            var imageObj = new Image();
-            context.clearRect(0,0,canvas.width,canvas.height);
-            imageObj.src = "images/heart.png";
-            imageObj.onload = function() {
-                for(var i=0; i<lifePointsMonster; i++)
-                    context.drawImage(imageObj, 20*i, 0);
-            };
-        }// end changeMonsterLives
+    function changeMonsterLives() {
+        var canvas = document.getElementById("monsterLives");
+        var context = canvas.getContext('2d');
+        var imageObj = new Image();
+        context.clearRect(0,0,canvas.width,canvas.height);
+        imageObj.src = "images/heart.png";
+        imageObj.onload = function() {
+            for(var i=0; i<lifePointsMonster; i++)
+                context.drawImage(imageObj, 20*i, 0);
+        };
+    }// end changeMonsterLives
     this.clearMonsterLPCanvas = function() {
             var canvas = document.getElementById("monsterLives");
             var context = canvas.getContext('2d');
             context.clearRect(0,0,canvas.width,canvas.height);        
     };// end clearMonsterLPCanvas
+
+    /**
+     * resets the monster type after a forced conversion into robot or boss 
+     */
+    this.resetMonsterType = function() {
+            if(typeControl.getIsEasy())
+                    type = "snail";
+            if(typeControl.getIsMedium())
+                    type = "snake";
+            if(typeControl.getIsHard())
+                    type = "heugh";
+            if(typeControl.getIsCrazy())
+                    type = "jack";                                                
+    };// end resetMonsterType
     
-        /**
-         * resets the monster type after a forced conversion into robot or boss 
-         */
-        this.resetMonsterType = function() {
-                if(typeControl.getIsEasy())
-                        type = "snail";
-                if(typeControl.getIsMedium())
-                        type = "snake";
-                if(typeControl.getIsHard())
-                        type = "heugh";
-                if(typeControl.getIsCrazy())
-                        type = "jack";                                                
-        };// end resetMonsterType
-        
 }// end createMonster
 // initialize monster
 var monster = new Monster();
@@ -969,11 +994,11 @@ function Character() {
     this.getBrainNumber = function() {
         return brainNumber;
     };// end accessor 
-        
-        this.loseLife = function() {
-                lifePoints --;
-                changeCharacterLives();
-        };// end loseLife
+    
+    this.loseLife = function() {
+            lifePoints --;
+            changeCharacterLives();
+    };// end loseLife
     function changeCharacterLives() {
                 var canvas = document.getElementById("characterLives");
             var context = canvas.getContext('2d');
@@ -991,20 +1016,22 @@ function Character() {
             context.clearRect(0,0,canvas.width,canvas.height);        
     };// end clearMonsterLPCanvas
         
-        this.death = function() {
-            // when character is dead
-            $(".ASDF").css("visibility", "hidden");
-            $(".battle").css("visibility", "hidden");
-            $(".gameOver").css("visibility", "visible");
-            document.getElementById("loseSound").load();
-            document.getElementById("loseSound").play();
-            $("#loseToMenu").click(function(){
-            $(".gameOver").css("visibility", "hidden");
-            $(".menu").css("visibility", "visible");
-            $("#lock2, #lock3, #lock4").addClass("stageSelection");
-            $("#girlSprite").css("left", 700);
-            });
-        };// end death
+    this.death = function() {
+        // when character is dead
+        $(".ASDF").css("visibility", "hidden");
+        $(".battle").css("visibility", "hidden");
+        $(".gameOver").css("visibility", "visible");
+        document.getElementById("loseSound").load();
+        document.getElementById("loseSound").play();
+        $("#loseToMenu").click(function(){
+	        $(".gameOver").css("visibility", "hidden");
+	        $(".menu").css("visibility", "visible");
+	        $("#lock2, #lock3, #lock4").addClass("stageSelection");
+	        $("#girlSprite").css("left", 700);
+         });
+        character.clearCharacterLPCanvas();
+        monster.clearMonsterLPCanvas();
+    };// end death
 }// end Constructor
 // initialize character
 var character = new Character();
@@ -1086,7 +1113,7 @@ function QuestionGenerator() {
         function makeOnes() {
             return Math.floor(Math.random()*10);
         }// end makeOnes
-    /**
+        /**
         * generates a random 2-digit number or zero
         * @return the number generated
         */
@@ -1383,7 +1410,7 @@ function Shield() {
                                 character.setShieldUpgrade(temp);                                
                                 temp = character.getMoney() - shieldPrice;                                
                                 character.setMoney(temp);
-                                shieldPrice += 500;// the price goes up
+                                shieldPrice = parseInt(shieldPrice) + parseInt(500);// the price goes up
                                 document.getElementById("moneySound").load();
                                 document.getElementById("moneySound").play();
                         }
@@ -1421,7 +1448,7 @@ function Weapon() {
          * @return the current price of the weapon
          */
         this.getWeaponPrice = function() {
-                return weaponPrice;
+             return weaponPrice;
         };// end accessor
         this.setWeaponPrice = function(p) {
             weaponPrice = p;
@@ -1436,7 +1463,7 @@ function Weapon() {
                                 character.setWeaponUpgrade(temp);
                                 temp = character.getMoney() - weaponPrice;
                                 character.setMoney(temp);
-                                weaponPrice += 500; // price goes up
+                                weaponPrice = parseInt(weaponPrice) + parseInt(500); // price goes up
                                 document.getElementById("moneySound").load();
                                 document.getElementById("moneySound").play();
                         }
