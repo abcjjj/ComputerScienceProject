@@ -1,2 +1,3 @@
-ComputerScienceProject
+Computer Science Project
 ======================
+
